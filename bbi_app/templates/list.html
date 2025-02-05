@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %}Project List{% endblock %}
+
+{% block content %}
+    <h1>Project List</h1>
+    <ul>
+        {% for project in projects %}
+            <li>
+                <h2><a href ="{{ project.get_absolute_url }}">
+                    {{ project.short_title }}</a></h2>
+                <p>Start Date: {{ project.start_date }}</p>
+                <p>End Date: {{ project.end_date }}</p>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}
