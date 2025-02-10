@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 def project_list(request):
     query = request.GET.get('q')
     if query:
-        projects = Project.objects.filter(Q(full_title__icontains=query) | Q(description__icontains=query))
+        projects = Project.objects.filter(Q(short_title__icontains=query) | Q(full_title__icontains=query) | Q(description__icontains=query))
     else:
         projects = Project.objects.all()
     return render(request, 'list.html', {'projects': projects})
@@ -21,7 +21,9 @@ def add_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_project = form.save(commit=False)
+            new_project.owner = request.user
+            new_project.save()
             return redirect('bbi_app:project_list')
     else:
         form = ProjectForm()

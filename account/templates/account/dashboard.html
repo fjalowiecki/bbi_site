@@ -1,7 +1,29 @@
 {% extends 'base.html' %}
 
-{% block title %}Dashboard{% endblock %}
+{% block title %}Your profile{% endblock %}
 
 {% block content %}
-<p>Simple dashboard</p>
+
+<p>You are logged in as {{ user }}.</p>
+<p>Account settings</p>
+
+<br>
+<h1>{{ profile.org_name }}</h1>
+<p>Email: {{ profile.org_email }}</p>
+<p>Phone: {{ profile.org_phone }}</p>
+<p>Edit NGO profile</p>
+<br>
+<p>Your projects:</p>
+<p>
+<ul>
+    {% for project in projects %}
+        <li><p><a href ="{{ project.get_absolute_url }}">
+                {{ project.short_title }}</a></p></li>
+    {% endfor %}
+    <br>
+    <a href ="{% url 'bbi_app:add_project' %}">
+        Add another project</a>
+</ul>
+</p>
+
 {% endblock %}
