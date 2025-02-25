@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.text import slugify
 
@@ -12,7 +12,7 @@ class Project(models.Model):
     start_date = models.DateField()
     end_date = models.DateField()
     # images = models.ImageField(upload_to='images/')
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projects')
+    # owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projects')
 
     def __str__(self):
         return self.short_title

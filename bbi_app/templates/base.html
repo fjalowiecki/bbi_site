@@ -5,30 +5,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'styles.css' %}">
+    <!-- <link rel="stylesheet" href="{% static 'styles.css' %}"> -->
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
     <title>{% block title %}BBI{% endblock %}</title>
 </head>
 
 <body>
     <header>
-        <nav>
-            <a href="{% url 'bbi_app:project_list' %}">Projects</a>
-            <form method="GET" action="{% url 'bbi_app:project_list' %}">
-                <input type="text" name="q" placeholder="Serach projects..">
-                <button type="submit">Search</button>
+        <nav class="p-4 bg-white flex justify-between items-center gap-4">
+            <p class="font-bold">Bank pomysłów</p>
+            <form method="GET" action="{% url 'bbi_app:project_list' %}" class="flex grow border border-gray-500 rounded-3xl py-1 px-3">
+                <input type="text" name="q" placeholder="Search projects.." class="grow">
+                <button type="submit" class="bg-yellow-400 px-3 py-0.5 rounded-3xl text-white hover:bg-yellow-500">Search</button>
             </form>
-            <p>|&nbsp;&nbsp;</p>
+            <a href="{% url 'bbi_app:project_list' %}">Projects</a>
             <a href="{% url 'bbi_app:add_project' %}">Add project</a>
-            {% if request.user.is_authenticated %}
-                <a href="{% url 'account:dashboard' %}">My dashboard</a>
-                <form method="post" action="{% url 'account:logout' %}">
-                    {% csrf_token %}
-                    <button type="submit">Logout</button>
-                </form>
-            {% else %}
-                <a href="{% url 'account:login' %}">Log in</a>
-                <a href="{% url 'account:register' %}">Sign up</a>
-            {% endif %}
         </nav>
     </header>
     <main>
