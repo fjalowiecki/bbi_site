@@ -1,18 +1,56 @@
 from django.db import models
-# from django.contrib.auth.models import User
 from django.urls import reverse
 from django.utils.text import slugify
 
+class Tag(models.Model):
+    name = models.CharField(max_length=50, unique=True)
+    slug = models.CharField(max_length=50, unique=True)
+    
+    def __str__(self):
+        return self.name
+    
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super().save(*args, **kwargs)
+
 class Project(models.Model):
-    short_title = models.CharField(max_length=250)
-    slug = models.SlugField(max_length=250, unique=bool)
-    full_title = models.CharField(max_length=500)
+    FINANCING_TYPES = [
+        ('local', 'Lokalne działania'),
+        ('local_initiative', 'Inicjatywa lokalna'),
+        ('own_resources', 'Z własnych środków'),
+        ('other', 'Inne'),
+    ]
+    LOCATION = [
+        ("bobrek", "Bobrek"),
+        ("gorecko", "Górecko"),
+        ("gorniki", "Górniki"),
+        ("karb", "Karb"),
+        ("lagiewniki", "Łagiewniki"),
+        ("miechowice", "Miechowice"),
+        ("osiedle_zietka", "Osiedle gen. Jerzego Ziętka"),
+        ("rozbark", "Rozbark"),
+        ("srodmiescie", "Śródmieście"),
+        ("stolarzowice", "Stolarzowice"),
+        ("stroszek_dabrowa", "Stroszek-Dąbrowa Miejska"),
+        ("sucha_gora", "Sucha Góra"),
+        ("szombierki", "Szombierki"),
+    ]
+
+    title = models.CharField(max_length=250)
+    slug = models.SlugField(max_length=250, unique=True)
+    short_description = models.CharField(max_length=250)
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-    start_date = models.DateField()
-    end_date = models.DateField()
+    people_involved_nb = models.PositiveBigIntegerField()
+    year_of_completion = models.PositiveSmallIntegerField()
+    location = models.CharField(max_length=30, choices=LOCATION)
+    financing_type = models.CharField(max_length=20, choices=FINANCING_TYPES)
+    financing_type_other = models.CharField(max_length=250, blank=True, null=True)
+    proj_site = models.URLField(blank=True, null=True)
+    contact_info = models.TextField(max_length=250, blank=True, null=True)
+    tags = models.ManyToManyField(Tag, related_name='projects', blank=True)
     # images = models.ImageField(upload_to='images/')
-    # owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='projects')
 
     def __str__(self):
         return self.short_title
@@ -22,7 +60,7 @@ class Project(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.slug:
-            base_slug = slugify(self.short_title)
+            base_slug = slugify(self.title)
             slug = base_slug
             counter = 1
             while Project.objects.filter(slug=slug).exists():
@@ -30,3 +68,4 @@ class Project(models.Model):
                 counter += 1
             self.slug = slug
         super().save(*args, **kwargs)
+

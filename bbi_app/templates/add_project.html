@@ -1,10 +1,65 @@
 {% extends 'base.html' %}
+{% load widget_tweaks %}
 
 {% block title %}Add project{% endblock %}
 {% block content %}
-<form method="post" enctype="multipart/form-data">
+<form method="POST" action="{% url 'bbi_app:add_project' %}" class="space-y-6 px-8">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add Project</button>
+    <div class="flex flex-col">
+        <label for="{{ form.title.id_for_label }}" class="mb-2 font-semibold">Tytuł:</label>
+        {{ form.title|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.title.errors|add_class:"text-red-500 text-sm" }}
+    </div>
+    <div class="flex flex-col">
+        <label for="{{ form.short_description.id_for_label }}" class="mb-2 font-semibold">Krótki opis:</label>
+        {{ form.short_description|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.short_description.errors|add_class:"text-red-500 text-sm" }}
+    </div>
+    <div class="flex flex-col">
+        <label for="{{ form.description.id_for_label }}" class="mb-2 font-semibold">Pełny opis:</label>
+        {{ form.description|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.description.errors|add_class:"text-red-500 text-sm" }}
+    </div>
+    <div class="flex flex-col">
+        <label for="{{ form.people_involved_nb.id_for_label }}" class="mb-2 font-semibold">Liczba zaangażowanych osób:</label>
+        {{ form.people_involved_nb|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.people_involved_nb.errors|add_class:"text-red-500 text-sm" }}
+    </div>
+    <div class="flex flex-col">
+        <label for="{{ form.year_of_completion.id_for_label }}" class="mb-2 font-semibold">Rok ukończenia:</label>
+        {{ form.year_of_completion|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.year_of_completion.errors|add_class:"text-red-500 text-sm" }}
+    </div>
+    <div class="flex flex-col">
+        <label for="{{ form.location.id_for_label }}" class="mb-2 font-semibold">Lokalizacja:</label>
+        {{ form.location|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.location.errors|add_class:"text-red-500 text-sm" }}
+    </div>
+    <div class="flex flex-col">
+        <label for="{{ form.financing_type.id_for_label }}" class="mb-2 font-semibold">Rodzaj finansowania:</label>
+        {{ form.financing_type|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.financing_type.errors|add_class:"text-red-500 text-sm" }}
+    </div>
+    <div class="flex flex-col">
+        <label for="{{ form.financing_type_other.id_for_label }}" class="mb-2 font-semibold">Inne finansowanie:</label>
+        {{ form.financing_type_other|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.financing_type_other.errors|add_class:"text-red-500 text-sm" }}
+    </div>
+    <div class="flex flex-col">
+        <label for="{{ form.proj_site.id_for_label }}" class="mb-2 font-semibold">Strona projektu:</label>
+        {{ form.proj_site|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.proj_site.errors|add_class:"text-red-500 text-sm" }}
+    </div>
+    <div class="flex flex-col">
+        <label for="{{ form.contact_info.id_for_label }}" class="mb-2 font-semibold">Informacje kontaktowe:</label>
+        {{ form.contact_info|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.contact_info.errors|add_class:"text-red-500 text-sm" }}
+    </div>
+    <div class="flex flex-col">
+        <label for="{{ form.tags.id_for_label }}" class="mb-2 font-semibold">Tagi:</label>
+        {{ form.tags|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.tags.errors|add_class:"text-red-500 text-sm" }}
+    </div>
+    <button type="submit" class="bg-yellow-400 px-3 py-0.5 rounded-3xl text-white hover:bg-yellow-500">Submit</button>
 </form>
 {% endblock %}

@@ -8,9 +8,9 @@
         {% for project in projects %}
             <li>
                 <h2><a href ="{{ project.get_absolute_url }}">
-                    {{ project.short_title }}</a></h2>
-                <p>Start Date: {{ project.start_date }}</p>
-                <p>End Date: {{ project.end_date }}</p>
+                    {{ project.title }}</a></h2>
+                <p>{{ project.short_description }}</p>
+                <p>Zrealizowany: {{ project.year_of_completion }}</p>
             </li>
         {% endfor %}
     </ul>

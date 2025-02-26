@@ -6,7 +6,7 @@ from django.db.models import Q
 def project_list(request):
     query = request.GET.get('q')
     if query:
-        projects = Project.objects.filter(Q(short_title__icontains=query) | Q(full_title__icontains=query) | Q(description__icontains=query))
+        projects = Project.objects.filter(Q(title__icontains=query) | Q(short_description__icontains=query) | Q(description__icontains=query))
     else:
         projects = Project.objects.all()
     return render(request, 'list.html', {'projects': projects})
