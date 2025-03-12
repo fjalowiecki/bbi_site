@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Project List{% endblock %}
+
+{% block content %}
+<header class="h-[60vh] p-4">
+    <nav class="bg-white flex justify-between items-center gap-4">
+        <p class="font-bold">Bank pomysłów</p>
+        <span class="flex-grow"></span>
+        <a href="{% url 'bbi_app:project_list' %}">Projekty</a>
+        <a href="{% url 'bbi_app:add_project' %}">Dodaj projekt</a>
+    </nav>
+    <div class="flex flex-col justify-evenly h-full">
+        <div>
+            <h1 class="text-5xl font-bold">Zainspiruj się<br>do działania!</h1>
+        </div>
+        <div>
+            <form method="GET" action="{% url 'bbi_app:project_list' %}"
+                class="flex grow border border-gray-500 rounded-3xl py-1 px-3">
+                <input type="text" name="q" placeholder="Szukaj działań..." class="grow">
+                <button type="submit"
+                    class="bg-yellow-400 px-3 py-0.5 rounded-3xl text-white hover:bg-yellow-500">Szukaj</button>
+            </form>
+            <div class="flex flex-wrap gap-2 mt-2">
+                <span>lub wybierz tag:</span>
+                {% for tag in tags %}
+                <a href="{% url 'bbi_app:project_list' %}?q={{ tag.slug }}"
+                    class="bg-yellow-400 px-3 py-0.5 rounded-3xl text-white hover:bg-yellow-500">
+                    {{ tag.name }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <h1>Ostatnio dodane działania:</h1>
+    <ul>
+        {% for project in projects %}
+        <li>
+            <h2><a href="{{ project.get_absolute_url }}">
+                    {{ project.title }}</a></h2>
+            <p>{{ project.short_description }}</p>
+            <p>Zrealizowany: {{ project.year_of_completion }}</p>
+        </li>
+        {% endfor %}
+    </ul>
+</main>
+{% endblock %}

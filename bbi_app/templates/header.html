@@ -1,0 +1,13 @@
+<header>
+    <nav class="p-4 bg-white flex justify-between items-center gap-4">
+        <p class="font-bold">Bank pomysłów</p>
+        <form method="GET" action="{% url 'bbi_app:project_list' %}"
+            class="flex grow border border-gray-500 rounded-3xl py-1 px-3">
+            <input type="text" name="q" placeholder="Szukaj projektów.." class="grow">
+            <button type="submit"
+                class="bg-yellow-400 px-3 py-0.5 rounded-3xl text-white hover:bg-yellow-500">Szukaj</button>
+        </form>
+        <a href="{% url 'bbi_app:project_list' %}">Projekty</a>
+        <a href="{% url 'bbi_app:add_project' %}">Dodaj projekt</a>
+    </nav>
+</header>

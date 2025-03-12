@@ -3,15 +3,18 @@
 {% block title %}Project List{% endblock %}
 
 {% block content %}
+{% include 'header.html' %}
+<main>
     <h1>Project List</h1>
     <ul>
         {% for project in projects %}
-            <li>
-                <h2><a href ="{{ project.get_absolute_url }}">
+        <li>
+            <h2><a href="{{ project.get_absolute_url }}">
                     {{ project.title }}</a></h2>
-                <p>{{ project.short_description }}</p>
-                <p>Zrealizowany: {{ project.year_of_completion }}</p>
-            </li>
+            <p>{{ project.short_description }}</p>
+            <p>Zrealizowany: {{ project.year_of_completion }}</p>
+        </li>
         {% endfor %}
     </ul>
+</main>
 {% endblock %}

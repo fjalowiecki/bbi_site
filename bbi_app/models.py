@@ -50,10 +50,10 @@ class Project(models.Model):
     proj_site = models.URLField(blank=True, null=True)
     contact_info = models.TextField(max_length=250, blank=True, null=True)
     tags = models.ManyToManyField(Tag, related_name='projects', blank=True)
-    # images = models.ImageField(upload_to='images/')
+    images = models.ImageField(upload_to='images/')
 
     def __str__(self):
-        return self.short_title
+        return self.short_description
     
     def get_absolute_url(self):
         return reverse('bbi_app:project_detail', args=[self.slug])
