@@ -28,12 +28,12 @@ def project_detail(request, slug):
 
 def add_project(request):
     if request.method == 'POST':
-        form = ProjectForm(request.POST)
+        form = ProjectForm(request.POST, request.FILES)
         if form.is_valid():
-            new_project = form.save(commit=False)
-            new_project.owner = request.user
-            new_project.save()
-            return redirect('bbi_app:project_list')
+            project = form.save(commit=False)
+            project.save()
+            form.save_m2m()
+            return redirect('bbi_app:project_detail', slug=project.slug)
     else:
         form = ProjectForm()
     return render(request, 'add_project.html', {'form': form})

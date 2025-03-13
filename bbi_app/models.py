@@ -50,7 +50,20 @@ class Project(models.Model):
     proj_site = models.URLField(blank=True, null=True)
     contact_info = models.TextField(max_length=250, blank=True, null=True)
     tags = models.ManyToManyField(Tag, related_name='projects', blank=True)
-    images = models.ImageField(upload_to='images/')
+    
+    # Photo
+    image1 = models.ImageField(upload_to='media/', blank=True, null=True)
+    image2 = models.ImageField(upload_to='media/', blank=True, null=True)
+    image3 = models.ImageField(upload_to='media/', blank=True, null=True)
+    image4 = models.ImageField(upload_to='media/', blank=True, null=True)
+    MAIN_IMAGE_CHOICES = [
+        (1, 'Zdjęcie 1'),
+        (2, 'Zdjęcie 2'),
+        (3, 'Zdjęcie 3'),
+        (4, 'Zdjęcie 4'),
+    ]
+    main_image = models.PositiveSmallIntegerField(choices=MAIN_IMAGE_CHOICES, blank=True, null=True, help_text="Wybierz numer zdjęcia, które ma być głównym")
+    
 
     def __str__(self):
         return self.short_description

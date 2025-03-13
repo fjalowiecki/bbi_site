@@ -7,7 +7,7 @@
 <main>
 <div class="flex justify-center">
   <div class="w-full max-w-2xl py-6">
-    <form method="POST" action="{% url 'bbi_app:add_project' %}" class="space-y-6">
+    <form method="POST" enctype="multipart/form-data" action="{% url 'bbi_app:add_project' %}" class="space-y-6">
       {% csrf_token %}
       <div class="flex flex-col">
         <label for="{{ form.title.id_for_label }}" class="mb-2 font-semibold">Tytuł:</label>
@@ -67,18 +67,39 @@
         {{ form.contact_info.errors|add_class:"text-red-500 text-sm" }}
       </div>
       <div class="flex flex-col">
+        <label for="{{ form.image1.id_for_label }}" class="mb-2 font-semibold">Zdjęcie 1 (główne):</label>
+        {{ form.image1|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.image1.errors|add_class:"text-red-500 text-sm" }}
+      </div>
+      <div class="flex flex-col">
+        <label for="{{ form.image2.id_for_label }}" class="mb-2 font-semibold">Zdjęcie 2:</label>
+        {{ form.image2|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.image2.errors|add_class:"text-red-500 text-sm" }}
+      </div>
+      <div class="flex flex-col">
+        <label for="{{ form.image3.id_for_label }}" class="mb-2 font-semibold">Zdjęcie 3:</label>
+        {{ form.image3|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.image3.errors|add_class:"text-red-500 text-sm" }}
+      </div>
+      <div class="flex flex-col">
+        <label for="{{ form.image4.id_for_label }}" class="mb-2 font-semibold">Zdjęcie 4:</label>
+        {{ form.image4|add_class:"border border-gray-300 p-2 rounded" }}
+        {{ form.image4.errors|add_class:"text-red-500 text-sm" }}
+      </div>
+      <div class="flex flex-col">
         <label for="{{ form.tags.id_for_label }}" class="mb-2 font-semibold">Tagi:</label>
         <div class="flex flex-wrap">
           {% for checkbox in form.tags %}
           <div class="mr-2 mb-2">
-            <input type="checkbox" id="{{ checkbox.id_for_label }}" name="{{ checkbox.html_name }}"
-              value="{{ checkbox.choice_value }}" class="peer hidden" {% if checkbox.choice_value in form.tags.value %}checked{% endif %}>
+            <input type="checkbox" id="{{ checkbox.id_for_label }}" name="tags"
+              value="{{ checkbox.data.value }}" class="peer hidden" {% if checkbox.data.value in form.tags.value %}checked{% endif %}>
             <label for="{{ checkbox.id_for_label }}"
               class="cursor-pointer border border-gray-300 py-1 px-3 rounded-xl peer-checked:bg-yellow-400 peer-checked:text-white">
               {{ checkbox.choice_label }}
             </label>
           </div>
           {% endfor %}
+          <!-- {{ form.tags }} -->
         </div>
         {{ form.tags.errors|add_class:"text-red-500 text-sm" }}
       </div>
