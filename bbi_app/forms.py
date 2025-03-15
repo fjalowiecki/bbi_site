@@ -19,6 +19,7 @@ class ProjectForm(forms.ModelForm):
             'image2',
             'image3',
             'image4',
+            'main_image',
             'tags'
         ]
         widgets = {

@@ -4,40 +4,96 @@
 
 {% block content %}
 {% include 'header.html' %}
-<main class="container mx-auto py-6">
-    <h1 class="text-3xl font-bold mb-4">{{ project.title }}</h1>
-
-    {% if project.image1 %}
-    <img src="{{ project.image1.url }}" alt="{{ project.title }}" class="w-full mb-4">
-    {% endif %}
-
-    <p class="mb-4">{{ project.description }}</p>
-    <p class="mb-4 font-semibold">Rok realizacji: {{ project.year_of_completion }}</p>
-
-    {% if project.tags.all %}
-    <div class="mb-4">
-        <h2 class="text-xl font-bold mb-2">Tagi:</h2>
-        <ul class="flex space-x-2">
+<main class="container mx-auto py-6 px-4">
+    <div class="flex flex-col md:flex-row md:gap-8">
+      <div class="w-full md:w-1/2">
+        <h1 class="text-3xl font-bold mb-4">{{ project.title }}</h1>
+        
+        <div class="mb-6">
+          <p class="mb-4">{{ project.short_description }}</p>
+          <p class="mb-4">{{ project.description }}</p>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div class="border-b pb-2">
+            <h3 class="font-bold">Rok realizacji</h3>
+            <p>{{ project.year_of_completion }}</p>
+          </div>
+          
+          <div class="border-b pb-2">
+            <h3 class="font-bold">Liczba zaangażowanych osób</h3>
+            <p>{{ project.people_involved_nb }}</p>
+          </div>
+          
+          <div class="border-b pb-2">
+            <h3 class="font-bold">Lokalizacja</h3>
+            <p>{{ project.get_location_display }}</p>
+          </div>
+          
+          <div class="border-b pb-2">
+            <h3 class="font-bold">Finansowanie</h3>
+            <p>{{ project.get_financing_type_display }}</p>
+            {% if project.financing_type == 'other' and project.financing_type_other %}
+              <p>{{ project.financing_type_other }}</p>
+            {% endif %}
+          </div>
+          
+          {% if project.proj_site %}
+          <div class="border-b pb-2">
+            <h3 class="font-bold">Strona projektu</h3>
+            <p><a href="{{ project.proj_site }}" target="_blank" class="text-blue-600 hover:underline">{{ project.proj_site }}</a></p>
+          </div>
+          {% endif %}
+          
+          {% if project.contact_info %}
+          <div class="border-b pb-2 md:col-span-2">
+            <h3 class="font-bold">Dane kontaktowe</h3>
+            <p>{{ project.contact_info }}</p>
+          </div>
+          {% endif %}
+        </div>
+        
+        {% if project.tags.all %}
+        <div class="mb-6">
+          <h3 class="font-bold mb-2">Tagi:</h3>
+          <div class="flex flex-wrap gap-2">
             {% for tag in project.tags.all %}
-            <li class="bg-gray-200 px-2 py-1 rounded">{{ tag.name }}</li>
+              <span class="bg-yellow-400 text-white px-3 py-1 rounded-xl">{{ tag.name }}</span>
             {% endfor %}
-        </ul>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+      
+      <div class="w-full md:w-1/2 mt-6 md:mt-0">
+        {% if project.main_image == 1 and project.image1 %}
+          <img src="{{ project.image1.url }}" alt="{{ project.title }}" class="w-full mb-4 rounded-lg shadow-md">
+        {% elif project.main_image == 2 and project.image2 %}
+          <img src="{{ project.image2.url }}" alt="{{ project.title }}" class="w-full mb-4 rounded-lg shadow-md">
+        {% elif project.main_image == 3 and project.image3 %}
+          <img src="{{ project.image3.url }}" alt="{{ project.title }}" class="w-full mb-4 rounded-lg shadow-md">
+        {% elif project.main_image == 4 and project.image4 %}
+          <img src="{{ project.image4.url }}" alt="{{ project.title }}" class="w-full mb-4 rounded-lg shadow-md">
+        {% elif project.image1 %}
+          <img src="{{ project.image1.url }}" alt="{{ project.title }}" class="w-full mb-4 rounded-lg shadow-md">
+        {% endif %}
+  
+        <div class="grid grid-cols-2 gap-4">
+          {% if project.image1 and project.main_image != 1 %}
+            <img src="{{ project.image1.url }}" alt="Zdjęcie 1" class="w-full rounded shadow-sm hover:shadow-md">
+          {% endif %}
+          {% if project.image2 and project.main_image != 2 %}
+            <img src="{{ project.image2.url }}" alt="Zdjęcie 2" class="w-full rounded shadow-sm hover:shadow-md">
+          {% endif %}
+          {% if project.image3 and project.main_image != 3 %}
+            <img src="{{ project.image3.url }}" alt="Zdjęcie 3" class="w-full rounded shadow-sm hover:shadow-md">
+          {% endif %}
+          {% if project.image4 and project.main_image != 4 %}
+            <img src="{{ project.image4.url }}" alt="Zdjęcie 4" class="w-full rounded shadow-sm hover:shadow-md">
+          {% endif %}
+        </div>
+      </div>
     </div>
-    {% endif %}
+  </main>
 
-    <div class="grid grid-cols-2 gap-4">
-        {% if project.image1 %}
-        <img src="{{ project.image1.url }}" alt="Zdjęcie 1">
-        {% endif %}
-        {% if project.image2 %}
-        <img src="{{ project.image2.url }}" alt="Zdjęcie 2">
-        {% endif %}
-        {% if project.image3 %}
-        <img src="{{ project.image3.url }}" alt="Zdjęcie 3">
-        {% endif %}
-        {% if project.image4 %}
-        <img src="{{ project.image4.url }}" alt="Zdjęcie 4">
-        {% endif %}
-    </div>
-</main>
 {% endblock %}
