@@ -26,9 +26,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ['*']
+if 'RENDER' in os.environ:
+    RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+    ALLOWED_HOSTS = [RENDER_EXTERNAL_HOSTNAME, '.onrender.com']
+else:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -81,8 +85,9 @@ WSGI_APPLICATION = 'bbi_proj.wsgi.application'
 # Replace the SQLite DATABASES configuration with PostgreSQL:
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://postgres:postgres@localhost:5432/bbi',
-        conn_max_age=600)
+        default=os.environ.get('DATABASE_URL', 'postgresql://postgres:postgres@localhost:5432/bbi'),
+        conn_max_age=600
+    )
 }
 
 # Password validation
@@ -131,4 +136,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Media
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+if 'RENDER' in os.environ:
+    MEDIA_ROOT = os.path.join('/tmp/media')
+else:
+    MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
