@@ -1,7 +1,7 @@
 databases:
   - name: bbidb
     plan: free
-    databaseName: bbi
+    databaseName: bbi_jj6r
     user: bbi
 
 services:
