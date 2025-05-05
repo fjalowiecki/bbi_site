@@ -91,7 +91,8 @@ WSGI_APPLICATION = 'bbi_proj.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL', 'postgresql://postgres:postgres@localhost:5432/bbi'),
-        conn_max_age=600
+        conn_max_age=600,
+        ssl_require=True
     )
 }
 
