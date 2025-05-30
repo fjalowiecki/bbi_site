@@ -1,0 +1,30 @@
+{% load static %}
+<header>
+    <nav class="flex justify-between items-start gap-4 mt-8">
+        <div>
+            <a href="{% url 'bbi_app:index' %}">
+                <img src="{% static 'bbi_app/images/logo.svg' %}" alt="Logo" class="w-[2rem] h-[2rem]">
+                <span class="flex flex-col leading-none ml-[2rem] font-medium">
+                    <span>bank</span>
+                    <span>pomysłów</span>
+                </span>
+            </a>
+        </div>
+        <div class="flex gap-10 items-start">
+            <a href="{% url 'bbi_app:project_list' %}" class="inline-flex items-center gap-2">
+                <img src="{% static 'bbi_app/images/button_browse.svg' %}" alt="Logo" class="w-[2rem] h-[2rem]">
+                <span class="flex flex-col leading-none -mt-1">
+                    <span>przeglądaj</span>
+                    <span>pomysły</span>
+                </span>
+            </a>
+            <a href="{% url 'bbi_app:add_project' %}" class="inline-flex items-center gap-2">
+                <img src="{% static 'bbi_app/images/button_add.svg' %}" alt="Logo" class="w-[2rem] h-[2rem]">
+                <span class="flex flex-col leading-none -mt-1">
+                    <span>dodaj</span>
+                    <span>pomysł</span>
+                </span>
+            </a>
+        </div>
+    </nav>
+</header>
