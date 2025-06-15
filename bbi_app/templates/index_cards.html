@@ -1,0 +1,55 @@
+{% load static %}
+{% block content %}
+<div class="relative">
+  <div class="columns-2 ml-20 gap-x-28 transition-opacity duration-500" id="project-cards-container">
+    {% for project in projects %}
+    <div
+      class="project-card relative break-inside-avoid pt-14 transition-opacity duration-500 {% if forloop.counter0 >= 4 %}hidden opacity-0{% else %}opacity-100{% endif %}">
+      <div class="flex h-full">
+        <div class="flex-1 flex flex-col relative">
+          <div class="absolute z-10 top-[-0.60rem] left-[-0.60rem] h-[10.8rem] w-[1rem]">
+            <img src="{% static 'bbi_app/images/card_border.svg' %}" class="h-full w-full object-contain">
+          </div>
+          <div class="h-36 overflow-hidden">
+            {% if project.image1 %}
+            <img src="{{ project.image1.url }}" alt="{{ project.title }}" class="w-full h-full object-cover">
+            {% else %}
+            <div class="bg-gray-200 h-full w-full flex items-center justify-center">
+              <span class="text-gray-500">Brak zdjęcia</span>
+            </div>
+            {% endif %}
+          </div>
+          <div class="flex flex-col">
+            <span class="text-xs mt-2">{{ project.title }}</span>
+            <div class="flex gap-1 justify-end">
+              {% if project.tags.all %}
+              {% for tag in project.tags.all|slice:":3" %}
+              <span class="font-extralight text-gray-900 text-xs">#{{ tag.name }}</span>
+              {% endfor %}
+              {% if project.tags.count > 3 %}
+              <span class="text-[rgb(241,189,51)] text-xs">[+]</span>
+              {% endif %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  {% if projects|length > 4 %}
+  <div class="flex justify-center mt-6 mb-4 ml-20 space-x-3" id="pagination-dots">
+    <button data-page="0" class="pagination-dot h-1 w-1 bg-black rounded-full" aria-label="Strona 1"></button>
+    {% if projects|length > 4 %}
+    <button data-page="1" class="pagination-dot h-1 w-1 bg-black rounded-full" aria-label="Strona 2"></button>
+    {% endif %}
+    {% if projects|length > 8 %}
+    <button data-page="2" class="pagination-dot h-1 w-1 bg-black rounded-full" aria-label="Strona 3"></button>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+
+<script src="{% static 'bbi_app/js/index_cards.js' %}"></script>
+{% endblock %}

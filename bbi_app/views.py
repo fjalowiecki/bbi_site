@@ -5,7 +5,7 @@ from django.db.models import Q
 
 def index(request):
     tags = Tag.objects.all()
-    projects = Project.objects.all()
+    projects = Project.objects.all().order_by('-id')[:12]
     return render(request, 'index.html', {'projects': projects, 'tags': tags})
     
 def project_list(request):
