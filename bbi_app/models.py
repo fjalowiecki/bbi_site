@@ -39,10 +39,10 @@ class Project(models.Model):
 
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique=True)
-    short_description = models.CharField(max_length=250)
+    short_description = models.CharField(max_length=250) #todo delete
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-    people_involved_nb = models.PositiveBigIntegerField()
+    people_involved_nb = models.PositiveBigIntegerField() #todo delete
     year_of_completion = models.PositiveSmallIntegerField()
     location = models.CharField(max_length=30, choices=LOCATION)
     financing_type = models.CharField(max_length=20, choices=FINANCING_TYPES)

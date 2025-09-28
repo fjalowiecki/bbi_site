@@ -25,7 +25,7 @@
                 <span class="text-4xl font-extralight -mt-1">]</span>
             </div>
         </form>
-        <div class="font-light flex flex-wrap mt-10 leading-tight">
+        <div class="c flex flex-wrap mt-10 leading-tight">
             <span class="mr-1">lub wybierz tag:</span>
             {% for tag in tags %}
             <a href="{% url 'bbi_app:project_list' %}?q={{ tag.slug }}"
