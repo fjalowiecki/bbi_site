@@ -1,10 +1,31 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block title %}Project List{% endblock %}
 
 {% block content %}
-{% include 'header_main.html' %}
 <main>
+    <form method="GET" action="{% url 'bbi_app:project_list' %}" class="mt-10 flex items-center">
+        <div class="flex flex-1 items-center gap-2 min-w-0">
+            <span class="text-4xl font-extralight -mt-1">[</span>
+            <input type="text" name="q" placeholder="Znajdź pomysł..."
+                class="flex flex-1 font-extralight focus:outline-none text-gray-900 min-w-0">
+        </div>
+        <div class="flex items-center gap-2">
+            <button type="submit" class="flex gap-2 items-center"><img
+                    src="{% static 'bbi_app/images/button_search.svg' %}" alt="Search button"
+                    class="w-[2rem] h-[2rem]"><span class="-mt-1">szukaj</span></button>
+            <span class="text-4xl font-extralight -mt-1">]</span>
+        </div>
+    </form>
+    <div class="c flex flex-wrap mt-4 md:mt-2 leading-tight">
+        {% for tag in tags %}
+        <a href="{% url 'bbi_app:project_list' %}?q={{ tag.slug }}"
+            class="text-[#EE5C69] hover:text-black transition duration-300 leading-tight mr-1">
+            #{{ tag.name }}
+        </a>
+        {% endfor %}
+    </div>
+
     {% include 'cards.html' %}
 </main>
 {% endblock %}

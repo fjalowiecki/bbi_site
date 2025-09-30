@@ -1,18 +1,17 @@
 {% load static %}
 {% block content %}
-  <div class="w-full px-4 py-8 columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-x-20" id="project-cards-container">
+  <div class="w-full px-4 pt-8 columns-1 sm:columns-2 md:columns-3 lg:columns-4 gap-x-10" id="project-cards-container">
     {% for project in projects %}
-    <div
-      class="project-card relative break-inside-avoid pt-14">
+    <div class="project-card relative break-inside-avoid mb-8">
       <a href="{% url 'bbi_app:project_detail' project.slug %}" class="absolute inset-0 z-20"></a>
-      <div class="flex h-full">
-        <div class="flex-1 flex flex-col relative">
-          <div class="absolute z-10 top-[-0.60rem] left-[-0.60rem] h-[8.80rem] w-[1rem]">
-            <img src="{% static 'bbi_app/images/card_border.svg' %}" class="h-full w-full object-contain">
-          </div>
+      <div class="relative pl-6">
+        <div class="absolute left-0 top-0 h-[calc(7rem_+_1.15rem)] w-8">
+          <img src="{% static 'bbi_app/images/card_border2.svg' %}" class="h-full w-full object-fill" />
+        </div>
+        <div class="flex-1 flex flex-col">
           <div class="h-28 overflow-hidden">
             {% if project.image1 %}
-            <img src="{{ project.image1.url }}" alt="{{ project.title }}" class="w-full h-full object-cover">
+            <img src="{{ project.image1.url }}" alt="{{ project.title }}" class="w-full h-full object-cover" />
             {% else %}
             <div class="bg-gray-200 h-full w-full flex items-center justify-center">
               <span class="text-gray-500">Brak zdjęcia</span>
@@ -22,14 +21,11 @@
           <div class="flex flex-col">
             <span class="text-xs mt-2">{{ project.title }}</span>
             <div class="flex gap-1 justify-end">
-              {% if project.tags.all %}
-              {% for tag in project.tags.all|slice:":3" %}
+              {% if project.tags.all %} {% for tag in project.tags.all|slice:":3" %}
               <span class="font-extralight text-gray-900 text-xs">#{{ tag.name }}</span>
-              {% endfor %}
-              {% if project.tags.count > 3 %}
-              <span class="text-[rgb(241,189,51)] text-xs">[+]</span>
-              {% endif %}
-              {% endif %}
+              {% endfor %} {% if project.tags.count > 3 %}
+              <span class="text-[#EE5C69] text-xs">[+]</span>
+              {% endif %} {% endif %}
             </div>
           </div>
         </div>
@@ -37,4 +33,26 @@
     </div>
     {% endfor %}
   </div>
+
+  {% if projects.has_other_pages %}
+  <div class="flex mb-6 justify-center">
+      <nav class="flex items-center gap-4 text-sm">
+          {% if projects.has_previous %}
+              <a href="?page={{ projects.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="hover:text-[#EE5C69] transition-colors">
+                  &laquo; Poprzednia
+              </a>
+          {% endif %}
+
+          <span class="text-gray-500">
+              Strona {{ projects.number }} z {{ projects.paginator.num_pages }}
+          </span>
+
+          {% if projects.has_next %}
+              <a href="?page={{ projects.next_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="hover:text-[#EE5C69] transition-colors">
+                  Następna &raquo;
+              </a>
+          {% endif %}
+      </nav>
+  </div>
+  {% endif %}
 {% endblock %}

@@ -26,9 +26,9 @@ def duplicate_project(modeladmin, request, queryset):
 duplicate_project.short_description = "Kopiuj zaznaczone projekty"
 
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'short_description', 'year_of_completion', 'location')
+    list_display = ('title', 'year_of_completion', 'location')
     list_filter = ('year_of_completion', 'location', 'financing_type', 'tags')
-    search_fields = ('title', 'short_description', 'description')
+    search_fields = ('title', 'description')
     actions = [duplicate_project]
 
 admin.site.register(Project, ProjectAdmin)

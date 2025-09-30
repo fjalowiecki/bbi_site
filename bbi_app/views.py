@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Project, Tag
 from .forms import ProjectForm
@@ -12,15 +13,19 @@ def project_list(request):
     tags = Tag.objects.all()
     query = request.GET.get('q')
     if query:
-        projects = Project.objects.filter(
+        project_queryset = Project.objects.filter(
             Q(title__icontains=query) |
-            Q(short_description__icontains=query) |
             Q(description__icontains=query) |
             Q(tags__slug__iexact=query)
         ).distinct()
     else:
-        projects = Project.objects.all()
-    return render(request, 'list.html', {'projects': projects, 'tags': tags})
+        project_queryset = Project.objects.all()
+
+    paginator = Paginator(project_queryset, 12)  # Pokaż 12 projektów na stronę
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'list.html', {'projects': page_obj, 'tags': tags})
 
 def project_detail(request, slug): 
     project = get_object_or_404(Project, slug=slug)

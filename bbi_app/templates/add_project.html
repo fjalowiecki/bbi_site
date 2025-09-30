@@ -4,7 +4,6 @@
 
 {% block title %}Add project{% endblock %}
 {% block content %}
-{% include 'header_main.html' %}
 <main>
   <div class="flex justify-center">
     <div class="w-full max-w-2xl py-6">
@@ -68,6 +67,7 @@
                     <span>zdjęcie</span>
                   </div>
                 </div>
+                <span class="absolute bottom-4 text-xs text-gray-500 pointer-events-none">(zdjęcie główne)</span>
                 <img alt="" class="preview hidden absolute inset-0 h-full w-full object-cover rounded-lg" />
               </label>
               {{ form.image1.errors|add_class:"text-red-500 text-sm" }}
@@ -132,7 +132,8 @@
               </div>
               {% endfor %}
             </div>
-            <p id="tag-counter" class="text-right text-xs text-black mt-2 mb-2">Wybrano <span id="selected-count">0</span> z 5 tagów
+            <p id="tag-counter" class="text-right text-xs text-black mt-2 mb-2">Wybrano <span
+                id="selected-count">0</span> z 5 tagów
             </p>
             {{ form.tags.errors|add_class:"text-red-500 text-sm" }}
           </div>
@@ -148,18 +149,19 @@
           <div class="flex flex-col">
             <label for="{{ form.contact_info.id_for_label }}" class="mt-4 mb-2 font-normal">Dane
               kontaktowe:</label>
-              <p class=" mb-2 text-sm font-extralight">Możecie zostawić dane kontaktowe dla osób, które byłyby zainteresowane większą ilością szczegołów dotyczącą Waszego działania.</p>
+            <p class=" mb-2 text-sm font-extralight">Możecie zostawić dane kontaktowe dla osób, które byłyby
+              zainteresowane większą ilością szczegołów dotyczącą Waszego działania.</p>
             {{ form.contact_info|add_class:"border-2 border-black p-2 h-16" }}
             {{ form.contact_info.errors|add_class:"text-red-500 text-sm" }}
             <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 100 znaków</span>
           </div>
 
           <div class="flex items-center mt-6 mb-2">
-            <input type="checkbox" id="accept_terms" name="accept_terms" required 
-              class="appearance-none w-4 h-4 rounded-full border-2 border-black checked:bg-gray-400 focus:outline-none mr-2"
-            >
+            <input type="checkbox" id="accept_terms" name="accept_terms" required
+              class="appearance-none w-4 h-4 rounded-full border-2 border-black checked:bg-gray-400 focus:outline-none mr-2">
             <label for="accept_terms" class="text-sm">
-              Akceptuję <a href="{% url 'bbi_app:index' %}" class="text-[#21B47E] hover:underline" target="_blank">Regulamin Banku Pomysłów</a>
+              Akceptuję <a href="{% url 'bbi_app:index' %}" class="text-[#21B47E] hover:underline"
+                target="_blank">Regulamin Banku Pomysłów</a>
             </label>
           </div>
 

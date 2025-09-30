@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="3.3546329"
+   height="227.95641"
+   viewBox="0 0 3.3546329 227.95641"
+   version="1.1"
+   xml:space="preserve"
+   style="clip-rule:evenodd;fill-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:2"
+   id="svg4"
+   sodipodi:docname="card_border2.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"><defs
+   id="defs4" /><sodipodi:namedview
+   id="namedview4"
+   pagecolor="#ffffff"
+   bordercolor="#000000"
+   borderopacity="0.25"
+   inkscape:showpageshadow="2"
+   inkscape:pageopacity="0.0"
+   inkscape:pagecheckerboard="0"
+   inkscape:deskcolor="#d1d1d1"
+   showgrid="false"
+   inkscape:zoom="4.517094"
+   inkscape:cx="42.283822"
+   inkscape:cy="211.75118"
+   inkscape:window-width="2400"
+   inkscape:window-height="1271"
+   inkscape:window-x="2391"
+   inkscape:window-y="-9"
+   inkscape:window-maximized="1"
+   inkscape:current-layer="g4" />
+    <g
+   transform="translate(-0.00197918,-398.44108)"
+   id="g4">
+        <g
+   id="Zdjęcie_Ramka"
+   transform="matrix(0.432077,0,0,5.0553,343.069,15.3082)">
+            <rect
+   x="-794"
+   y="74.711998"
+   width="46.287998"
+   height="46.287998"
+   style="fill:none"
+   id="rect1"
+   inkscape:label="rect1" />
+            <clipPath
+   id="_clip1">
+                <rect
+   x="-794"
+   y="74.711998"
+   width="46.287998"
+   height="46.287998"
+   id="rect2" />
+            </clipPath>
+            <g
+   clip-path="url(#_clip1)"
+   id="g3">
+                <g
+   transform="matrix(1.22075,0,0,0.0338519,-3920.58,97.8405)"
+   id="g2">
+                    <g
+   id="Pasek">
+                        <path
+   d="m 2562.04,-651.43 h 4.63 l -0.69,1298.244 h -3.2 z m 2.32,1332.054 c -0.89,0 -1.64,-0.939 -2.25,-2.817 -0.6,-1.879 -0.91,-4.227 -0.91,-7.044 0,-2.818 0.31,-5.14 0.91,-6.966 0.61,-1.826 1.36,-2.739 2.25,-2.739 0.92,0 1.68,0.913 2.29,2.739 0.6,1.826 0.91,4.148 0.91,6.966 0,2.817 -0.31,5.165 -0.91,7.044 -0.61,1.878 -1.37,2.817 -2.29,2.817 z"
+   id="path2"
+   inkscape:label="path2"
+   sodipodi:nodetypes="cccccscscscscs" />
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

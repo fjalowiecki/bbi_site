@@ -2,21 +2,19 @@
 {% load static %}
 
 {% block title %}bank pomysłów{% endblock %}
-
 {% block content %}
-{% include 'header_main.html' %}
-<main class="flex-1 flex flex-col lg:flex-row">
-    <section class="w-full lg:w-1/2 flex flex-col justify-center my-[5vh] lg:my-[10vh]">
-        <h1 class="text-7xl font-medium">Zainspiruj się!</h1>
-        <p class="font-light leading-tight mt-7">Bank Pomysłów powstał z myślą o mieszkańcach i mieszkankach, którzy
+<main class="flex-1 flex flex-col lg:flex-row gap-8 lg:gap-16">
+    <section class="w-full lg:w-1/2 flex flex-col justify-center mt-[5vh] lg:mt-[10vh]">
+        <h1 class="text-5xl md:text-7xl font-medium">Zainspiruj się!</h1>
+        <p class="font-light leading-tight mt-4 md:mt-7">Bank Pomysłów powstał z myślą o mieszkańcach i mieszkankach, którzy
             chcą podzielić się swoimi zrealizowanymi inicjatywami. Znajdziesz tu projekty społeczne, sąsiedzkie i inne
             lokalne działania, które pokazują, że warto się angażować. To miejsce spotkań pomysłów, wymiany doświadczeń
             i dowód na to, że razem możemy zmieniać naszą codzienność.<br>Dodaj swój pomysł i zainspiruj innych!</p>
         <form method="GET" action="{% url 'bbi_app:project_list' %}" class="mt-10 flex items-center">
-            <div class="flex flex-1 items-center gap-2">
+            <div class="flex flex-1 items-center gap-2 min-w-0">
                 <span class="text-4xl font-extralight -mt-1">[</span>
                 <input type="text" name="q" placeholder="Znajdź pomysł..."
-                    class="flex flex-1 font-extralight focus:outline-none text-gray-900">
+                    class="flex flex-1 font-extralight focus:outline-none text-gray-900 min-w-0">
             </div>
             <div class="flex items-center gap-2">
                 <button type="submit" class="flex gap-2 items-center"><img
@@ -36,13 +34,13 @@
         </div>
     </section>
     <section class="w-full lg:w-1/2 flex flex-col flex-1">
-            <img src="{% static 'bbi_app/images/section_logo.svg' %}" alt="Section logo" class="w-[2rem] h-[2rem]">
-            <span class="flex flex-col leading-none ml-[2rem]">
-                <span>ostatnio</span>
-                <span>dodane</span>
-                <span>pomysły</span>
-            </span>
-            {% include 'index_cards.html' %}
+        <img src="{% static 'bbi_app/images/section_logo.svg' %}" alt="Section logo" class="w-[2rem] h-[2rem]">
+        <span class="flex flex-col leading-none ml-[2rem]">
+            <span>ostatnio</span>
+            <span>dodane</span>
+            <span>pomysły</span>
+        </span>
+        {% include 'index_cards.html' %}
     </section>
 </main>
 {% endblock %}
