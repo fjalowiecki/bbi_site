@@ -19,6 +19,7 @@ class Project(models.Model):
         ('local', 'Lokalne działania'),
         ('local_initiative', 'Inicjatywa lokalna'),
         ('own_resources', 'Z własnych środków'),
+        ('no_financing', 'Realizacja bez finansowania'),
         ('other', 'Inne'),
     ]
     LOCATION = [
@@ -55,14 +56,6 @@ class Project(models.Model):
     image2 = models.ImageField(upload_to='media/', blank=True, null=True)
     image3 = models.ImageField(upload_to='media/', blank=True, null=True)
     image4 = models.ImageField(upload_to='media/', blank=True, null=True)
-    MAIN_IMAGE_CHOICES = [
-        (1, 'Zdjęcie 1'),
-        (2, 'Zdjęcie 2'),
-        (3, 'Zdjęcie 3'),
-        (4, 'Zdjęcie 4'),
-    ]
-    main_image = models.PositiveSmallIntegerField(choices=MAIN_IMAGE_CHOICES, blank=True, null=True, help_text="Wybierz numer zdjęcia, które ma być głównym")
-    
 
     def __str__(self):
         return self.title

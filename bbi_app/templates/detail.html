@@ -66,29 +66,18 @@
       </div>
       
       <div class="w-full md:w-1/2 mt-6 md:mt-0">
-        {% if project.main_image == 1 and project.image1 %}
-          <img src="{{ project.image1.url }}" alt="{{ project.title }}" class="w-full mb-4 rounded-lg shadow-md">
-        {% elif project.main_image == 2 and project.image2 %}
-          <img src="{{ project.image2.url }}" alt="{{ project.title }}" class="w-full mb-4 rounded-lg shadow-md">
-        {% elif project.main_image == 3 and project.image3 %}
-          <img src="{{ project.image3.url }}" alt="{{ project.title }}" class="w-full mb-4 rounded-lg shadow-md">
-        {% elif project.main_image == 4 and project.image4 %}
-          <img src="{{ project.image4.url }}" alt="{{ project.title }}" class="w-full mb-4 rounded-lg shadow-md">
-        {% elif project.image1 %}
+        {% if project.image1 %}
           <img src="{{ project.image1.url }}" alt="{{ project.title }}" class="w-full mb-4 rounded-lg shadow-md">
         {% endif %}
   
-        <div class="grid grid-cols-2 gap-4">
-          {% if project.image1 and project.main_image != 1 %}
-            <img src="{{ project.image1.url }}" alt="Zdjęcie 1" class="w-full rounded shadow-sm hover:shadow-md">
-          {% endif %}
-          {% if project.image2 and project.main_image != 2 %}
+        <div class="grid grid-cols-3 gap-4">
+          {% if project.image2 %}
             <img src="{{ project.image2.url }}" alt="Zdjęcie 2" class="w-full rounded shadow-sm hover:shadow-md">
           {% endif %}
-          {% if project.image3 and project.main_image != 3 %}
+          {% if project.image3 %}
             <img src="{{ project.image3.url }}" alt="Zdjęcie 3" class="w-full rounded shadow-sm hover:shadow-md">
           {% endif %}
-          {% if project.image4 and project.main_image != 4 %}
+          {% if project.image4 %}
             <img src="{{ project.image4.url }}" alt="Zdjęcie 4" class="w-full rounded shadow-sm hover:shadow-md">
           {% endif %}
         </div>

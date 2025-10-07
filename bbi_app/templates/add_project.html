@@ -135,8 +135,13 @@
             <p id="tag-counter" class="text-right text-xs text-black mt-2 mb-2">Wybrano <span
                 id="selected-count">0</span> z 5 tagów
             </p>
-            {{ form.tags.errors|add_class:"text-red-500 text-sm" }}
-          </div>
+            {% if form.tags.errors %}
+              <div class="text-red-500 text-sm">
+                {% for error in form.tags.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+              {% endif %}
           <label class="mt-4 mb-2 font-normal">Materiały zewnętrzne:</label>
           <p class=" mb-2 text-sm font-extralight">Jeśli w wyniku Waszego działania powstały zewnętrzne materiały
             np. filmowe lub prowadzicie profile w miediach społecznościowych
@@ -209,22 +214,28 @@
     });
   });
 
-  document.addEventListener('DOMContentLoaded', () => {
+   document.addEventListener('DOMContentLoaded', () => {
     const financingSelect = document.getElementById('{{ form.financing_type.id_for_label }}');
     const otherContainer = document.getElementById('financing_type_other_container');
+    const otherInput = document.getElementById('{{ form.financing_type_other.id_for_label }}');
 
     financingSelect.addEventListener('change', function () {
       if (this.value === 'other') {
         otherContainer.classList.remove('hidden');
+        otherInput.required = true;
       } else {
         otherContainer.classList.add('hidden');
+        otherInput.required = false;
+        otherInput.value = '';
       }
     });
 
     if (financingSelect.value === 'other') {
       otherContainer.classList.remove('hidden');
+      otherInput.required = true;
     } else {
       otherContainer.classList.add('hidden');
+      otherInput.required = false;
     }
 
     // Podgląd zdjęć dla kafelków
