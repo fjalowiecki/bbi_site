@@ -33,7 +33,7 @@
             {{ form.location.errors|add_class:"text-red-500 text-sm" }}
           </div>
           <div class="flex flex-col">
-            <label for="{{ form.year_of_completion.id_for_label }}" class="mb-2 font-normal">Data realizacji:</label>
+            <label for="{{ form.year_of_completion.id_for_label }}" class="mb-2 font-normal">Rok realizacji:</label>
             {{ form.year_of_completion|add_class:"border-2 border-black p-2" }}
             {{ form.year_of_completion.errors|add_class:"text-red-500 text-sm" }}
           </div>
@@ -137,49 +137,78 @@
             </p>
             {{ form.tags.errors|add_class:"text-red-500 text-sm" }}
           </div>
+          <label class="mt-4 mb-2 font-normal">Materiały zewnętrzne:</label>
+          <p class=" mb-2 text-sm font-extralight">Jeśli w wyniku Waszego działania powstały zewnętrzne materiały
+            np. filmowe lub prowadzicie profile w miediach społecznościowych
+            poświęcone swojemu działaniu możecie je tutaj zamieścić:</p>
 
-          <div class="flex flex-col">
-            <label for="{{ form.proj_site.id_for_label }}" class="mb-2 font-normal">Materiały zewnętrzne:</label>
-            <p class=" mb-2 text-sm font-extralight">Jeśli w wyniku Waszego działania powstały zewnętrzne materiały
-              np. filmowe lub prowadzicie profile w miediach społecznościowych
-              poświęcone swojemu działaniu możecie je tutaj zamieścić:</p>
-            {{ form.proj_site|add_class:"border-2 border-black p-2" }}
-            {{ form.proj_site.errors|add_class:"text-red-500 text-sm" }}
+          <div id="link-form-container">
+            {{ link_formset.management_form }}
+            {% for form in link_formset %}
+            <div class="link-form flex items-center gap-2 mb-2">
+              {{ form.name|add_class:"border-2 border-black p-2 flex-1 font-light"|attr:"placeholder:nazwa odnośnika" }}
+              {{ form.url|add_class:"border-2 border-black p-2 flex-1 font-light"|attr:"placeholder:http://..." }}
+            </div>
+            {% endfor %}
           </div>
-          <div class="flex flex-col">
-            <label for="{{ form.contact_info.id_for_label }}" class="mt-4 mb-2 font-normal">Dane
-              kontaktowe:</label>
-            <p class=" mb-2 text-sm font-extralight">Możecie zostawić dane kontaktowe dla osób, które byłyby
-              zainteresowane większą ilością szczegołów dotyczącą Waszego działania.</p>
-            {{ form.contact_info|add_class:"border-2 border-black p-2 h-16" }}
-            {{ form.contact_info.errors|add_class:"text-red-500 text-sm" }}
-            <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 100 znaków</span>
-          </div>
+          <button type="button" id="add-link-form" class="mt-2 flex w-full items-center justify-center gap-2 bg-gray-100 p-2">
+            <img src="{% static 'bbi_app/images/button_add.svg' %}" alt="Add icon" class="h-5 w-5">
+            <span class="font-light">dodaj kolejny odnośnik</span>
+          </button>
+        </div>
+        <div class="flex flex-col">
+          <label for="{{ form.contact_info.id_for_label }}" class="mt-4 mb-2 font-normal">Dane
+            kontaktowe:</label>
+          <p class=" mb-2 text-sm font-extralight">Możecie zostawić dane kontaktowe dla osób, które byłyby
+            zainteresowane większą ilością szczegołów dotyczącą Waszego działania.</p>
+          {{ form.contact_info|add_class:"border-2 border-black p-2 h-16" }}
+          {{ form.contact_info.errors|add_class:"text-red-500 text-sm" }}
+          <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 100 znaków</span>
+        </div>
 
-          <div class="flex items-center mt-6 mb-2">
-            <input type="checkbox" id="accept_terms" name="accept_terms" required
-              class="appearance-none w-4 h-4 rounded-full border-2 border-black checked:bg-gray-400 focus:outline-none mr-2">
-            <label for="accept_terms" class="text-sm">
-              Akceptuję <a href="{% url 'bbi_app:index' %}" class="text-[#21B47E] hover:underline"
-                target="_blank">Regulamin Banku Pomysłów</a>
-            </label>
-          </div>
+        <div class="flex items-center mt-6 mb-2">
+          <input type="checkbox" id="accept_terms" name="accept_terms" required
+            class="appearance-none w-4 h-4 rounded-full border-2 border-black checked:bg-gray-400 focus:outline-none mr-2">
+          <label for="accept_terms" class="text-sm">
+            Akceptuję <a href="{% url 'bbi_app:index' %}" class="text-[#21B47E] hover:underline"
+              target="_blank">Regulamin Banku Pomysłów</a>
+          </label>
+        </div>
 
-          <div class="flex justify-end mt-8">
-            <button type="submit" class="flex items-center">
-              <img src="{% static 'bbi_app/images/button_add.svg' %}" alt="Add" class="w-8 h-8 mr-2">
-              <div class="flex flex-col text-left leading-tight">
-                <span>dodaj</span>
-                <span>pomysł</span>
-              </div>
-            </button>
-          </div>
+        <div class="flex justify-end mt-8">
+          <button type="submit" class="flex items-center">
+            <img src="{% static 'bbi_app/images/button_add.svg' %}" alt="Add" class="w-8 h-8 mr-2">
+            <div class="flex flex-col text-left leading-tight">
+              <span>dodaj</span>
+              <span>pomysł</span>
+            </div>
+          </button>
+        </div>
       </form>
     </div>
   </div>
 </main>
 
 <script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const addLinkBtn = document.getElementById('add-link-form');
+    const container = document.getElementById('link-form-container');
+    const totalFormsInput = document.querySelector('input[name="links-TOTAL_FORMS"]');
+    const formTemplate = `
+      <div class="link-form flex items-center gap-2 mb-2">
+        <input type="text" name="links-__prefix__-name" class="border-2 border-black p-2 flex-1" placeholder="Nazwa linku">
+        <input type="url" name="links-__prefix__-url" class="border-2 border-black p-2 flex-1" placeholder="https://...">
+      </div>
+    `;
+
+    addLinkBtn.addEventListener('click', function () {
+      let formNum = parseInt(totalFormsInput.value);
+      let newForm = formTemplate.replace(/__prefix__/g, formNum);
+      container.insertAdjacentHTML('beforeend', newForm);
+      totalFormsInput.value = formNum + 1;
+    });
+  });
+
   document.addEventListener('DOMContentLoaded', () => {
     const financingSelect = document.getElementById('{{ form.financing_type.id_for_label }}');
     const otherContainer = document.getElementById('financing_type_other_container');

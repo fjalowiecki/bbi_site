@@ -36,10 +36,12 @@
             {% endif %}
           </div>
           
-          {% if project.proj_site %}
-          <div class="border-b pb-2">
-            <h3 class="font-bold">Strona projektu</h3>
-            <p><a href="{{ project.proj_site }}" target="_blank" class="text-blue-600 hover:underline">{{ project.proj_site }}</a></p>
+          {% if project.links.all %}
+          <div class="border-b pb-2 md:col-span-2">
+            <h3 class="font-bold">Materiały zewnętrzne</h3>
+            {% for link in project.links.all %}
+              <p><a href="{{ link.url }}" target="_blank" class="text-blue-600 hover:underline">{{ link.name }}</a></p>
+            {% endfor %}
           </div>
           {% endif %}
           

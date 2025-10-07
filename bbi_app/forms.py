@@ -1,5 +1,5 @@
 from django import forms
-from .models import Project
+from .models import Project, ProjectLink
 
 class ProjectForm(forms.ModelForm):
     class Meta:
@@ -11,7 +11,6 @@ class ProjectForm(forms.ModelForm):
             'location',
             'financing_type',
             'financing_type_other',
-            'proj_site',
             'contact_info',
             'image1',
             'image2',
@@ -23,3 +22,11 @@ class ProjectForm(forms.ModelForm):
         widgets = {
             'tags': forms.CheckboxSelectMultiple(),
         }
+
+ProjectLinkFormSet = forms.inlineformset_factory(
+    Project,
+    ProjectLink,
+    fields=('name', 'url'),
+    extra=1,
+    can_delete=False
+)

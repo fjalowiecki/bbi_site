@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Project, Tag
+from .models import Project, Tag, ProjectLink
 from django.utils.text import slugify
 
 def duplicate_project(modeladmin, request, queryset):
@@ -25,11 +25,16 @@ def duplicate_project(modeladmin, request, queryset):
         
 duplicate_project.short_description = "Kopiuj zaznaczone projekty"
 
+class ProjectLinkInline(admin.TabularInline):
+    model = ProjectLink
+    extra = 1
+
 class ProjectAdmin(admin.ModelAdmin):
     list_display = ('title', 'year_of_completion', 'location')
     list_filter = ('year_of_completion', 'location', 'financing_type', 'tags')
     search_fields = ('title', 'description')
     actions = [duplicate_project]
+    inlines = [ProjectLinkInline]
 
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Tag)

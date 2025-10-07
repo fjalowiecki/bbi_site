@@ -36,16 +36,17 @@ class Project(models.Model):
         ("sucha_gora", "Sucha Góra"),
         ("szombierki", "Szombierki"),
     ]
+    
+    YEAR_CHOICES = [(r, r) for r in range(2010, 2031)]
 
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique=True)
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
-    year_of_completion = models.PositiveSmallIntegerField()
+    year_of_completion = models.IntegerField(choices=YEAR_CHOICES)
     location = models.CharField(max_length=30, choices=LOCATION)
     financing_type = models.CharField(max_length=20, choices=FINANCING_TYPES)
     financing_type_other = models.CharField(max_length=250, blank=True, null=True)
-    proj_site = models.URLField(blank=True, null=True)
     contact_info = models.TextField(max_length=250, blank=True, null=True)
     tags = models.ManyToManyField(Tag, related_name='projects', blank=True)
     
@@ -80,3 +81,10 @@ class Project(models.Model):
             self.slug = slug
         super().save(*args, **kwargs)
 
+class ProjectLink(models.Model):
+    project = models.ForeignKey(Project, related_name='links', on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, verbose_name="Nazwa linku")
+    url = models.URLField(verbose_name="Adres URL")
+
+    def __str__(self):
+        return f"{self.name} ({self.project.title})"

@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Project, Tag
-from .forms import ProjectForm
+from .forms import ProjectForm, ProjectLinkFormSet
 from django.db.models import Q
 
 def index(request):
@@ -34,13 +34,15 @@ def project_detail(request, slug):
 def add_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
-        if form.is_valid():
-            project = form.save(commit=False)
-            project.save()
-            form.save_m2m()
+        link_formset = ProjectLinkFormSet(request.POST)
+        if form.is_valid() and link_formset.is_valid():
+            project = form.save()
+            link_formset.instance = project
+            link_formset.save()
             return redirect('bbi_app:project_detail', slug=project.slug)
     else:
         form = ProjectForm()
-    return render(request, 'add_project.html', {'form': form})
+        link_formset = ProjectLinkFormSet()
+    return render(request, 'add_project.html', {'form': form, 'link_formset': link_formset})
 
 
