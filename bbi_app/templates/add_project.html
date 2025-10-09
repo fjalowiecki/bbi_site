@@ -12,7 +12,13 @@
         <div class="flex flex-col">
           <label for="{{ form.title.id_for_label }}" class="mb-2">Tytuł działania:</label>
           {{ form.title|add_class:"border-2 border-black p-2" }}
-          {{ form.title.errors|add_class:"text-red-500 text-sm" }}
+          {% if form.title.errors %}
+          <div class="text-red-500 text-sm mt-1">
+            {% for error in form.title.errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
           <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 40 znaków</span>
         </div>
         <div class="flex flex-col">
@@ -23,33 +29,63 @@
             - liczba osób zaangażowanych w realizację działania<br>
             - sposób zaangażowania w realizację działania<br></p>
           {{ form.description|add_class:"border-2 border-black p-2" }}
-          {{ form.description.errors|add_class:"text-red-500 text-sm" }}
+          {% if form.description.errors %}
+          <div class="text-red-500 text-sm mt-1">
+            {% for error in form.description.errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
           <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 500 znaków</span>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="flex flex-col">
             <label for="{{ form.location.id_for_label }}" class="mb-2 font-normal">Lokalizacja:</label>
             {{ form.location|add_class:"border-2 border-black p-2" }}
-            {{ form.location.errors|add_class:"text-red-500 text-sm" }}
+            {% if form.location.errors %}
+              <div class="text-red-500 text-sm mt-1">
+                {% for error in form.location.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
           </div>
           <div class="flex flex-col">
             <label for="{{ form.year_of_completion.id_for_label }}" class="mb-2 font-normal">Rok realizacji:</label>
             {{ form.year_of_completion|add_class:"border-2 border-black p-2" }}
-            {{ form.year_of_completion.errors|add_class:"text-red-500 text-sm" }}
+            {% if form.year_of_completion.errors %}
+              <div class="text-red-500 text-sm mt-1">
+                {% for error in form.year_of_completion.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
           </div>
         </div>
         <div class="flex flex-col">
           <label for="{{ form.financing_type.id_for_label }}" class="mb-2 font-normal">Rodzaj
             finansowania:</label>
           {{ form.financing_type|add_class:"border-2 border-black p-2" }}
-          {{ form.financing_type.errors|add_class:"text-red-500 text-sm" }}
+          {% if form.financing_type.errors %}
+            <div class="text-red-500 text-sm mt-1">
+              {% for error in form.financing_type.errors %}
+                <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+          {% endif %}
         </div>
         <div id="financing_type_other_container" class="flex flex-col hidden">
           <div class="flex flex-col">
             <label for="{{ form.financing_type_other.id_for_label }}" class="mb-2 font-normal">Inne
               finansowanie:</label>
             {{ form.financing_type_other|add_class:"border-2 border-black p-2" }}
-            {{ form.financing_type_other.errors|add_class:"text-red-500 text-sm" }}
+            {% if form.financing_type_other.errors %}
+              <div class="text-red-500 text-sm mt-1">
+                {% for error in form.financing_type_other.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
           </div>
         </div>
         <div class="flex flex-col">
@@ -57,7 +93,7 @@
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
 
             <div class="flex flex-col">
-              {{ form.image1|add_class:"hidden upload-input"|attr:"accept:image/*" }}
+              {{ form.image1|add_class:"hidden upload-input"|attr:"accept:image/*,.heic,.heif" }}
               <label for="{{ form.image1.id_for_label }}"
                 class="relative flex h-40 w-full items-center justify-center rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 cursor-pointer overflow-hidden">
                 <div class="placeholder flex items-center gap-2 pointer-events-none">
@@ -70,10 +106,16 @@
                 <span class="absolute bottom-4 text-xs text-gray-500 pointer-events-none">(zdjęcie główne)</span>
                 <img alt="" class="preview hidden absolute inset-0 h-full w-full object-cover rounded-lg" />
               </label>
-              {{ form.image1.errors|add_class:"text-red-500 text-sm" }}
+              {% if form.image1.errors %}
+              <div class="text-red-500 text-sm mt-1">
+                {% for error in form.image1.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
             </div>
             <div class="flex flex-col">
-              {{ form.image2|add_class:"hidden upload-input"|attr:"accept:image/*" }}
+              {{ form.image2|add_class:"hidden upload-input"|attr:"accept:image/*,.heic,.heif" }}
               <label for="{{ form.image2.id_for_label }}"
                 class="relative flex h-40 w-full items-center justify-center rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 cursor-pointer overflow-hidden">
                 <div class="placeholder flex items-center gap-2 pointer-events-none">
@@ -85,10 +127,16 @@
                 </div>
                 <img alt="" class="preview hidden absolute inset-0 h-full w-full object-cover rounded-lg" />
               </label>
-              {{ form.image2.errors|add_class:"text-red-500 text-sm" }}
+              {% if form.image2.errors %}
+              <div class="text-red-500 text-sm mt-1">
+                {% for error in form.image2.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
             </div>
             <div class="flex flex-col">
-              {{ form.image3|add_class:"hidden upload-input"|attr:"accept:image/*" }}
+              {{ form.image3|add_class:"hidden upload-input"|attr:"accept:image/*,.heic,.heif" }}
               <label for="{{ form.image3.id_for_label }}"
                 class="relative flex h-40 w-full items-center justify-center rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 cursor-pointer overflow-hidden">
                 <div class="placeholder flex items-center gap-2 pointer-events-none">
@@ -100,10 +148,16 @@
                 </div>
                 <img alt="" class="preview hidden absolute inset-0 h-full w-full object-cover rounded-lg" />
               </label>
-              {{ form.image3.errors|add_class:"text-red-500 text-sm" }}
+              {% if form.image3.errors %}
+              <div class="text-red-500 text-sm mt-1">
+                {% for error in form.image3.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
             </div>
             <div class="flex flex-col">
-              {{ form.image4|add_class:"hidden upload-input"|attr:"accept:image/*" }}
+              {{ form.image4|add_class:"hidden upload-input"|attr:"accept:image/*,.heic,.heif" }}
               <label for="{{ form.image4.id_for_label }}"
                 class="relative flex h-40 w-full items-center justify-center rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 cursor-pointer overflow-hidden">
                 <div class="placeholder flex items-center gap-2 pointer-events-none">
@@ -115,7 +169,13 @@
                 </div>
                 <img alt="" class="preview hidden absolute inset-0 h-full w-full object-cover rounded-lg" />
               </label>
-              {{ form.image4.errors|add_class:"text-red-500 text-sm" }}
+              {% if form.image4.errors %}
+              <div class="text-red-500 text-sm mt-1">
+                {% for error in form.image4.errors %}
+                  <p>{{ error }}</p>
+                {% endfor %}
+              </div>
+            {% endif %}
             </div>
           </div>
           <div class="flex flex-col">
@@ -167,7 +227,13 @@
           <p class=" mb-2 text-sm font-extralight">Możecie zostawić dane kontaktowe dla osób, które byłyby
             zainteresowane większą ilością szczegołów dotyczącą Waszego działania.</p>
           {{ form.contact_info|add_class:"border-2 border-black p-2 h-16" }}
-          {{ form.contact_info.errors|add_class:"text-red-500 text-sm" }}
+          {% if form.contact_info.errors %}
+          <div class="text-red-500 text-sm mt-1">
+            {% for error in form.contact_info.errors %}
+              <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
           <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 100 znaków</span>
         </div>
 
@@ -238,15 +304,42 @@
       otherInput.required = false;
     }
 
-    // Podgląd zdjęć dla kafelków
+    // Podgląd zdjęć dla kafelków - z obsługą HEIC
     document.querySelectorAll('input.upload-input').forEach((input) => {
-      input.addEventListener('change', () => {
+      input.addEventListener('change', async () => {
         const label = document.querySelector(`label[for="${input.id}"]`);
         if (!label) return;
         const placeholder = label.querySelector('.placeholder');
         const preview = label.querySelector('img.preview');
+        
         if (input.files && input.files[0]) {
-          preview.src = URL.createObjectURL(input.files[0]);
+          const file = input.files[0];
+          
+          // Sprawdź czy to plik HEIC/HEIF
+          if (file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif')) {
+            try {
+              // Użyj heic2any do konwersji HEIC na blob dla podglądu
+              if (typeof heic2any !== 'undefined') {
+                const convertedBlob = await heic2any({
+                  blob: file,
+                  toType: 'image/jpeg',
+                  quality: 0.8
+                });
+                preview.src = URL.createObjectURL(convertedBlob);
+              } else {
+                // Fallback - pokaż ikonę dla HEIC jeśli biblioteka nie jest załadowana
+                preview.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yMCAyMEg0NFY0NEgyMFYyMFoiIHN0cm9rZT0iIzlDQTNBRiIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxjaXJjbGUgY3g9IjI4IiBjeT0iMjgiIHI9IjQiIGZpbGw9IiM5Q0EzQUYiLz4KPHRleHQgeD0iMzIiIHk9IjUyIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iOCIgZmlsbD0iIzlDQTNBRiI+SEVJQzwvdGV4dD4KPHN2Zz4K';
+              }
+            } catch (error) {
+              console.log('Błąd konwersji HEIC:', error);
+              // Fallback - pokaż ikonę
+              preview.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2NCA2NCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjY0IiBoZWlnaHQ9IjY0IiBmaWxsPSIjRjNGNEY2Ii8+CjxwYXRoIGQ9Ik0yMCAyMEg0NFY0NEgyMFYyMFoiIHN0cm9rZT0iIzlDQTNBRiIgc3Ryb2tlLXdpZHRoPSIyIi8+CjxjaXJjbGUgY3g9IjI4IiBjeT0iMjgiIHI9IjQiIGZpbGw9IiM5Q0EzQUYiLz4KPHN2Zz4K';
+            }
+          } else {
+            // Standardowe pliki obrazów
+            preview.src = URL.createObjectURL(file);
+          }
+          
           preview.classList.remove('hidden');
           placeholder.classList.add('hidden');
         } else {
@@ -296,4 +389,7 @@
   });
 
 </script>
+
+<!-- Dodaj bibliotekę heic2any dla konwersji HEIC -->
+<script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
 {% endblock %}
