@@ -45,4 +45,7 @@ def add_project(request):
         link_formset = ProjectLinkFormSet()
     return render(request, 'add_project.html', {'form': form, 'link_formset': link_formset})
 
+def regulations(request):
+    return render(request, 'regulations.html')
+
 
