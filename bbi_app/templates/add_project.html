@@ -11,7 +11,7 @@
         {% csrf_token %}
         <div class="flex flex-col">
           <label for="{{ form.title.id_for_label }}" class="mb-2">Tytuł działania:</label>
-          {{ form.title|add_class:"border-2 border-black p-2" }}
+          {{ form.title|add_class:"border-2 border-black p-2"|attr:"maxlength:40" }}
           {% if form.title.errors %}
           <div class="text-red-500 text-sm mt-1">
             {% for error in form.title.errors %}
@@ -19,7 +19,7 @@
             {% endfor %}
           </div>
           {% endif %}
-          <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 40 znaków</span>
+          <span class="mt-2 text-right font-extralight text-xs"><span id="title-counter">0</span> z maksymalnie 40 znaków</span>
         </div>
         <div class="flex flex-col">
           <label for="{{ form.description.id_for_label }}" class="mt-2">Opis działania:</label>
@@ -28,7 +28,7 @@
             - opis tego co zrobiliście<br>
             - liczba osób zaangażowanych w realizację działania<br>
             - sposób zaangażowania w realizację działania<br></p>
-          {{ form.description|add_class:"border-2 border-black p-2" }}
+          {{ form.description|add_class:"border-2 border-black p-2"|attr:"maxlength:500" }}
           {% if form.description.errors %}
           <div class="text-red-500 text-sm mt-1">
             {% for error in form.description.errors %}
@@ -36,7 +36,7 @@
             {% endfor %}
           </div>
           {% endif %}
-          <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 500 znaków</span>
+          <span class="mt-2 text-right font-extralight text-xs"><span id="description-counter">0</span> z maksymalnie 500 znaków</span>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div class="flex flex-col">
@@ -262,7 +262,7 @@
               </div>
               {% endfor %}
             </div>
-            <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 10 MB</span>
+            <span class="text-right font-extralight text-xs">Maksymalnie 10 MB</span>
             <button type="button" id="add-file-form"
               class="mt-2 flex w-full items-center justify-center gap-2 bg-gray-100 p-2">
               <img src="{% static 'bbi_app/images/button_add.svg' %}" alt="Add icon" class="h-5 w-5">
@@ -275,7 +275,7 @@
               kontaktowe:</label>
             <p class=" mb-2 text-sm font-extralight">Możecie zostawić dane kontaktowe dla osób, które byłyby
               zainteresowane większą ilością szczegołów dotyczącą Waszego działania.</p>
-            {{ form.contact_info|add_class:"border-2 border-black p-2 h-16" }}
+            {{ form.contact_info|add_class:"border-2 border-black p-2 h-16"|attr:"maxlength:100" }}
             {% if form.contact_info.errors %}
             <div class="text-red-500 text-sm mt-1">
               {% for error in form.contact_info.errors %}
@@ -283,7 +283,7 @@
               {% endfor %}
             </div>
             {% endif %}
-            <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 100 znaków</span>
+            <span class="mt-2 text-right font-extralight text-xs"><span id="contact-counter">0</span> z maksymalnie 100 znaków</span>
           </div>
 
           <div class="flex items-center mt-6 mb-2">
@@ -311,6 +311,28 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    // --- Liczniki znaków ---
+    function setupCharCounter(inputId, counterId, maxLength) {
+      var input = document.getElementById(inputId);
+      var counter = document.getElementById(counterId);
+      
+      if (input && counter) {
+        // Ustaw początkową wartość
+        counter.textContent = input.value.length;
+        
+        // Aktualizuj przy wpisywaniu
+        input.addEventListener('input', function() {
+          counter.textContent = this.value.length;
+        });
+      }
+    }
+    
+    // Inicjalizacja liczników
+    setupCharCounter('{{ form.title.id_for_label }}', 'title-counter', 40);
+    setupCharCounter('{{ form.description.id_for_label }}', 'description-counter', 500);
+    setupCharCounter('{{ form.contact_info.id_for_label }}', 'contact-counter', 100);
+    
+    // --- Dodawanie linków ---
     const addLinkBtn = document.getElementById('add-link-form');
     const container = document.getElementById('link-form-container');
     const totalFormsInput = document.querySelector('input[name="links-TOTAL_FORMS"]');
