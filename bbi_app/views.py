@@ -6,20 +6,22 @@ from django.db.models import Q
 
 def index(request):
     tags = Tag.objects.all()
-    projects = Project.objects.all().order_by('-id')[:12]
+    projects = Project.objects.filter(is_approved=True).order_by('-id')[:12]
     return render(request, 'index.html', {'projects': projects, 'tags': tags})
     
 def project_list(request):
     tags = Tag.objects.all()
     query = request.GET.get('q')
+    base_queryset = Project.objects.filter(is_approved=True)
+
     if query:
-        project_queryset = Project.objects.filter(
+        project_queryset = base_queryset.filter(
             Q(title__icontains=query) |
             Q(description__icontains=query) |
             Q(tags__slug__iexact=query)
         ).distinct()
     else:
-        project_queryset = Project.objects.all()
+        project_queryset = base_queryset.all()
 
     paginator = Paginator(project_queryset, 12)  # Pokaż 12 projektów na stronę
     page_number = request.GET.get('page')
@@ -28,7 +30,7 @@ def project_list(request):
     return render(request, 'list.html', {'projects': page_obj, 'tags': tags})
 
 def project_detail(request, slug): 
-    project = get_object_or_404(Project, slug=slug)
+    project = get_object_or_404(Project, slug=slug, is_approved=True)
     return render(request, 'detail.html', {'project': project})
 
 def add_project(request):
@@ -46,7 +48,7 @@ def add_project(request):
             file_formset.instance = project
             file_formset.save()
             
-            return redirect('bbi_app:project_detail', slug=project.slug)
+            return redirect('bbi_app:project_added_success')
     else:
         form = ProjectForm()
         link_formset = ProjectLinkFormSet(prefix='links')
@@ -58,6 +60,10 @@ def add_project(request):
         'file_formset': file_formset
     }
     return render(request, 'add_project.html', context)
+
+def project_added_success(request):
+    tags = Tag.objects.all()
+    return render(request, 'project_added_success.html', {'tags': tags})
 
 def regulations(request):
     return render(request, 'regulations.html')

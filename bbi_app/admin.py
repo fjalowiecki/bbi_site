@@ -1,6 +1,10 @@
 from django.contrib import admin
-from .models import Project, Tag, ProjectLink
+from .models import Project, Tag, ProjectLink, ProjectFile
 from django.utils.text import slugify
+
+def approve_projects(modeladmin, request, queryset):
+    queryset.update(is_approved=True)
+approve_projects.short_description = "Zatwierdź zaznaczone projekty"
 
 def duplicate_project(modeladmin, request, queryset):
     for project in queryset:
@@ -29,12 +33,17 @@ class ProjectLinkInline(admin.TabularInline):
     model = ProjectLink
     extra = 1
 
+class ProjectFileInline(admin.TabularInline):
+    model = ProjectFile
+    extra = 1
+
 class ProjectAdmin(admin.ModelAdmin):
-    list_display = ('title', 'year_of_completion', 'location')
+    list_display = ('title', 'year_of_completion', 'location', 'is_approved')
     list_filter = ('year_of_completion', 'location', 'financing_type', 'tags')
     search_fields = ('title', 'description')
-    actions = [duplicate_project]
-    inlines = [ProjectLinkInline]
+    actions = [duplicate_project, approve_projects]
+    inlines = [ProjectLinkInline, ProjectFileInline]
+    list_editable = ('is_approved',)
 
 admin.site.register(Project, ProjectAdmin)
 admin.site.register(Tag)

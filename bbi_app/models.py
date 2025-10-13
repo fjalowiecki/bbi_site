@@ -58,6 +58,7 @@ class Project(models.Model):
     image3 = models.ImageField(upload_to='project_images/', blank=True, null=True, storage=MediaCloudinaryStorage())
     image4 = models.ImageField(upload_to='project_images/', blank=True, null=True, storage=MediaCloudinaryStorage())
 
+    is_approved = models.BooleanField(default=False, verbose_name="Zatwierdzony")
 
     def __str__(self):
         return self.title
