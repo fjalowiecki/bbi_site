@@ -1,7 +1,7 @@
 from django.core.paginator import Paginator
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Project, Tag
-from .forms import ProjectForm, ProjectLinkFormSet
+from .forms import ProjectForm, ProjectLinkFormSet, ProjectFileFormSet
 from django.db.models import Q
 
 def index(request):
@@ -34,18 +34,30 @@ def project_detail(request, slug):
 def add_project(request):
     if request.method == 'POST':
         form = ProjectForm(request.POST, request.FILES)
-        link_formset = ProjectLinkFormSet(request.POST)
-        if form.is_valid() and link_formset.is_valid():
+        link_formset = ProjectLinkFormSet(request.POST, prefix='links')
+        file_formset = ProjectFileFormSet(request.POST, request.FILES, prefix='files')
+
+        if form.is_valid() and link_formset.is_valid() and file_formset.is_valid():
             project = form.save()
+
             link_formset.instance = project
             link_formset.save()
+
+            file_formset.instance = project
+            file_formset.save()
+            
             return redirect('bbi_app:project_detail', slug=project.slug)
     else:
         form = ProjectForm()
-        link_formset = ProjectLinkFormSet()
-    return render(request, 'add_project.html', {'form': form, 'link_formset': link_formset})
+        link_formset = ProjectLinkFormSet(prefix='links')
+        file_formset = ProjectFileFormSet(prefix='files')
+
+    context = {
+        'form': form,
+        'link_formset': link_formset,
+        'file_formset': file_formset
+    }
+    return render(request, 'add_project.html', context)
 
 def regulations(request):
     return render(request, 'regulations.html')
-
-

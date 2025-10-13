@@ -1,6 +1,7 @@
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
+from cloudinary_storage.storage import MediaCloudinaryStorage, RawMediaCloudinaryStorage
 
 class Tag(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -52,10 +53,11 @@ class Project(models.Model):
     tags = models.ManyToManyField(Tag, related_name='projects', blank=True)
     
     # Photo
-    image1 = models.ImageField(upload_to='media/', blank=True, null=True)
-    image2 = models.ImageField(upload_to='media/', blank=True, null=True)
-    image3 = models.ImageField(upload_to='media/', blank=True, null=True)
-    image4 = models.ImageField(upload_to='media/', blank=True, null=True)
+    image1 = models.ImageField(upload_to='project_images/', blank=True, null=True, storage=MediaCloudinaryStorage())
+    image2 = models.ImageField(upload_to='project_images/', blank=True, null=True, storage=MediaCloudinaryStorage())
+    image3 = models.ImageField(upload_to='project_images/', blank=True, null=True, storage=MediaCloudinaryStorage())
+    image4 = models.ImageField(upload_to='project_images/', blank=True, null=True, storage=MediaCloudinaryStorage())
+
 
     def __str__(self):
         return self.title
@@ -78,6 +80,14 @@ class ProjectLink(models.Model):
     project = models.ForeignKey(Project, related_name='links', on_delete=models.CASCADE)
     name = models.CharField(max_length=100, verbose_name="Nazwa linku")
     url = models.URLField(verbose_name="Adres URL")
+
+    def __str__(self):
+        return f"{self.name} ({self.project.title})"
+    
+class ProjectFile(models.Model):
+    project = models.ForeignKey(Project, related_name='files', on_delete=models.CASCADE)
+    name = models.CharField(max_length=100, verbose_name="Nazwa pliku")
+    file = models.FileField(upload_to='project_files/', storage=RawMediaCloudinaryStorage())
 
     def __str__(self):
         return f"{self.name} ({self.project.title})"

@@ -15,10 +15,10 @@
           {% if form.title.errors %}
           <div class="text-red-500 text-sm mt-1">
             {% for error in form.title.errors %}
-              <p>{{ error }}</p>
+            <p>{{ error }}</p>
             {% endfor %}
           </div>
-        {% endif %}
+          {% endif %}
           <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 40 znaków</span>
         </div>
         <div class="flex flex-col">
@@ -32,10 +32,10 @@
           {% if form.description.errors %}
           <div class="text-red-500 text-sm mt-1">
             {% for error in form.description.errors %}
-              <p>{{ error }}</p>
+            <p>{{ error }}</p>
             {% endfor %}
           </div>
-        {% endif %}
+          {% endif %}
           <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 500 znaków</span>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -43,22 +43,22 @@
             <label for="{{ form.location.id_for_label }}" class="mb-2 font-normal">Lokalizacja:</label>
             {{ form.location|add_class:"border-2 border-black p-2" }}
             {% if form.location.errors %}
-              <div class="text-red-500 text-sm mt-1">
-                {% for error in form.location.errors %}
-                  <p>{{ error }}</p>
-                {% endfor %}
-              </div>
+            <div class="text-red-500 text-sm mt-1">
+              {% for error in form.location.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
             {% endif %}
           </div>
           <div class="flex flex-col">
             <label for="{{ form.year_of_completion.id_for_label }}" class="mb-2 font-normal">Rok realizacji:</label>
             {{ form.year_of_completion|add_class:"border-2 border-black p-2" }}
             {% if form.year_of_completion.errors %}
-              <div class="text-red-500 text-sm mt-1">
-                {% for error in form.year_of_completion.errors %}
-                  <p>{{ error }}</p>
-                {% endfor %}
-              </div>
+            <div class="text-red-500 text-sm mt-1">
+              {% for error in form.year_of_completion.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
             {% endif %}
           </div>
         </div>
@@ -67,11 +67,11 @@
             finansowania:</label>
           {{ form.financing_type|add_class:"border-2 border-black p-2" }}
           {% if form.financing_type.errors %}
-            <div class="text-red-500 text-sm mt-1">
-              {% for error in form.financing_type.errors %}
-                <p>{{ error }}</p>
-              {% endfor %}
-            </div>
+          <div class="text-red-500 text-sm mt-1">
+            {% for error in form.financing_type.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
           {% endif %}
         </div>
         <div id="financing_type_other_container" class="flex flex-col hidden">
@@ -80,11 +80,11 @@
               finansowanie:</label>
             {{ form.financing_type_other|add_class:"border-2 border-black p-2" }}
             {% if form.financing_type_other.errors %}
-              <div class="text-red-500 text-sm mt-1">
-                {% for error in form.financing_type_other.errors %}
-                  <p>{{ error }}</p>
-                {% endfor %}
-              </div>
+            <div class="text-red-500 text-sm mt-1">
+              {% for error in form.financing_type_other.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
             {% endif %}
           </div>
         </div>
@@ -109,10 +109,10 @@
               {% if form.image1.errors %}
               <div class="text-red-500 text-sm mt-1">
                 {% for error in form.image1.errors %}
-                  <p>{{ error }}</p>
+                <p>{{ error }}</p>
                 {% endfor %}
               </div>
-            {% endif %}
+              {% endif %}
             </div>
             <div class="flex flex-col">
               {{ form.image2|add_class:"hidden upload-input"|attr:"accept:image/*,.heic,.heif" }}
@@ -130,10 +130,10 @@
               {% if form.image2.errors %}
               <div class="text-red-500 text-sm mt-1">
                 {% for error in form.image2.errors %}
-                  <p>{{ error }}</p>
+                <p>{{ error }}</p>
                 {% endfor %}
               </div>
-            {% endif %}
+              {% endif %}
             </div>
             <div class="flex flex-col">
               {{ form.image3|add_class:"hidden upload-input"|attr:"accept:image/*,.heic,.heif" }}
@@ -151,10 +151,10 @@
               {% if form.image3.errors %}
               <div class="text-red-500 text-sm mt-1">
                 {% for error in form.image3.errors %}
-                  <p>{{ error }}</p>
+                <p>{{ error }}</p>
                 {% endfor %}
               </div>
-            {% endif %}
+              {% endif %}
             </div>
             <div class="flex flex-col">
               {{ form.image4|add_class:"hidden upload-input"|attr:"accept:image/*,.heic,.heif" }}
@@ -172,10 +172,10 @@
               {% if form.image4.errors %}
               <div class="text-red-500 text-sm mt-1">
                 {% for error in form.image4.errors %}
-                  <p>{{ error }}</p>
+                <p>{{ error }}</p>
                 {% endfor %}
               </div>
-            {% endif %}
+              {% endif %}
             </div>
           </div>
           <div class="flex flex-col">
@@ -196,65 +196,114 @@
                 id="selected-count">0</span> z 5 tagów
             </p>
             {% if form.tags.errors %}
-              <div class="text-red-500 text-sm">
-                {% for error in form.tags.errors %}
-                  <p>{{ error }}</p>
-                {% endfor %}
-              </div>
-              {% endif %}
-          <label class="mt-4 mb-2 font-normal">Materiały zewnętrzne:</label>
-          <p class=" mb-2 text-sm font-extralight">Jeśli w wyniku Waszego działania powstały zewnętrzne materiały
-            np. filmowe lub prowadzicie profile w miediach społecznościowych
-            poświęcone swojemu działaniu możecie je tutaj zamieścić:</p>
-
-          <div id="link-form-container">
-            {{ link_formset.management_form }}
-            {% for form in link_formset %}
-            <div class="link-form flex items-center gap-2 mb-2">
-              {{ form.name|add_class:"border-2 border-black p-2 flex-1 font-light"|attr:"placeholder:nazwa odnośnika" }}
-              {{ form.url|add_class:"border-2 border-black p-2 flex-1 font-light"|attr:"placeholder:http://..." }}
-            </div>
-            {% endfor %}
-          </div>
-          <button type="button" id="add-link-form" class="mt-2 flex w-full items-center justify-center gap-2 bg-gray-100 p-2">
-            <img src="{% static 'bbi_app/images/button_add.svg' %}" alt="Add icon" class="h-5 w-5">
-            <span class="font-light">dodaj kolejny odnośnik</span>
-          </button>
-        </div>
-        <div class="flex flex-col">
-          <label for="{{ form.contact_info.id_for_label }}" class="mt-4 mb-2 font-normal">Dane
-            kontaktowe:</label>
-          <p class=" mb-2 text-sm font-extralight">Możecie zostawić dane kontaktowe dla osób, które byłyby
-            zainteresowane większą ilością szczegołów dotyczącą Waszego działania.</p>
-          {{ form.contact_info|add_class:"border-2 border-black p-2 h-16" }}
-          {% if form.contact_info.errors %}
-          <div class="text-red-500 text-sm mt-1">
-            {% for error in form.contact_info.errors %}
+            <div class="text-red-500 text-sm">
+              {% for error in form.tags.errors %}
               <p>{{ error }}</p>
-            {% endfor %}
-          </div>
-        {% endif %}
-          <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 100 znaków</span>
-        </div>
-
-        <div class="flex items-center mt-6 mb-2">
-          <input type="checkbox" id="accept_terms" name="accept_terms" required
-            class="appearance-none w-4 h-4 rounded-full border-2 border-black checked:bg-gray-400 focus:outline-none mr-2">
-          <label for="accept_terms" class="text-sm">
-            Akceptuję <a href="{% url 'bbi_app:index' %}" class="text-[#21B47E] hover:underline"
-              target="_blank">Regulamin Banku Pomysłów</a>
-          </label>
-        </div>
-
-        <div class="flex justify-end mt-8">
-          <button type="submit" class="flex items-center">
-            <img src="{% static 'bbi_app/images/button_add.svg' %}" alt="Add" class="w-8 h-8 mr-2">
-            <div class="flex flex-col text-left leading-tight">
-              <span>dodaj</span>
-              <span>pomysł</span>
+              {% endfor %}
             </div>
-          </button>
-        </div>
+            {% endif %}
+            <label class="mt-4 mb-2 font-normal">Materiały zewnętrzne:</label>
+            <p class=" mb-2 text-sm font-extralight">Jeśli w wyniku Waszego działania powstały zewnętrzne materiały
+              np. filmowe lub prowadzicie profile w miediach społecznościowych
+              poświęcone swojemu działaniu możecie je tutaj zamieścić:</p>
+
+            <div id="link-form-container">
+              {{ link_formset.management_form }}
+              {% for form in link_formset %}
+              <div class="link-form flex flex-col md:flex-row items-center gap-2 mb-2">
+                {{ form.url|add_class:"border-2 border-black p-2 flex-1 font-light"|attr:"placeholder:http://..." }}
+                {{ form.name|add_class:"border-2 border-black p-2 flex-1 font-light"|attr:"placeholder:nazwij link" }}
+              </div>
+              {% endfor %}
+            </div>
+            <button type="button" id="add-link-form"
+              class="mt-2 flex w-full items-center justify-center gap-2 bg-gray-100 p-2">
+              <img src="{% static 'bbi_app/images/button_add.svg' %}" alt="Add icon" class="h-5 w-5">
+              <span class="font-light">dodaj kolejny link</span>
+            </button>
+
+            <label class="mt-4 mb-2 font-normal">Pliki:</label>
+            <p class=" mb-2 text-sm font-extralight">Jeśli w wyniku Waszego działania powstały jakieś biuletyny,
+              przewodniki, albumy możecie je tutaj zamieścić.</p>
+
+            <div id="file-form-container">
+              {{ file_formset.management_form }}
+              {% if file_formset.non_form_errors %}
+                <div class="text-red-500 text-sm mb-2">
+                  {% for error in file_formset.non_form_errors %}
+                    <p>{{ error }}</p>
+                  {% endfor %}
+                </div>
+              {% endif %}
+              {% for form in file_formset %}
+              <div class="file-form mb-2">
+                <div class="flex flex-col md:flex-row items-start gap-2">
+                  <div class="w-full md:w-1/2">
+                    {{ form.name|add_class:"border-2 border-black p-2 w-full font-light"|attr:"placeholder:nazwij plik" }}
+                    {% if form.name.errors %}
+                      <div class="text-red-500 text-sm mt-1">
+                        {% for error in form.name.errors %}
+                          <p>{{ error }}</p>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
+                  <div class="w-full md:w-1/2">
+                    {{ form.file|add_class:"border-2 border-black p-1.5 w-full font-light file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200" }}
+                    {% if form.file.errors %}
+                      <div class="text-red-500 text-sm mt-1">
+                        {% for error in form.file.errors %}
+                          <p>{{ error }}</p>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+            <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 10 MB</span>
+            <button type="button" id="add-file-form"
+              class="mt-2 flex w-full items-center justify-center gap-2 bg-gray-100 p-2">
+              <img src="{% static 'bbi_app/images/button_add.svg' %}" alt="Add icon" class="h-5 w-5">
+              <span class="font-light">dodaj kolejny plik</span>
+            </button>
+
+          </div>
+          <div class="flex flex-col">
+            <label for="{{ form.contact_info.id_for_label }}" class="mt-4 mb-2 font-normal">Dane
+              kontaktowe:</label>
+            <p class=" mb-2 text-sm font-extralight">Możecie zostawić dane kontaktowe dla osób, które byłyby
+              zainteresowane większą ilością szczegołów dotyczącą Waszego działania.</p>
+            {{ form.contact_info|add_class:"border-2 border-black p-2 h-16" }}
+            {% if form.contact_info.errors %}
+            <div class="text-red-500 text-sm mt-1">
+              {% for error in form.contact_info.errors %}
+              <p>{{ error }}</p>
+              {% endfor %}
+            </div>
+            {% endif %}
+            <span class="mt-2 text-right font-extralight text-xs">Maksymalnie 100 znaków</span>
+          </div>
+
+          <div class="flex items-center mt-6 mb-2">
+            <input type="checkbox" id="accept_terms" name="accept_terms" required
+              class="appearance-none w-4 h-4 rounded-full border-2 border-black checked:bg-gray-400 focus:outline-none mr-2">
+            <label for="accept_terms" class="text-sm">
+              Akceptuję <a href="{% url 'bbi_app:regulations' %}" class="text-[#21B47E] hover:underline"
+                target="_blank">Regulamin Banku Pomysłów</a>
+            </label>
+          </div>
+
+          <div class="flex justify-end mt-8">
+            <button type="submit" class="flex items-center">
+              <img src="{% static 'bbi_app/images/button_add.svg' %}" alt="Add" class="w-8 h-8 mr-2">
+              <div class="flex flex-col text-left leading-tight">
+                <span>dodaj</span>
+                <span>pomysł</span>
+              </div>
+            </button>
+          </div>
       </form>
     </div>
   </div>
@@ -266,9 +315,9 @@
     const container = document.getElementById('link-form-container');
     const totalFormsInput = document.querySelector('input[name="links-TOTAL_FORMS"]');
     const formTemplate = `
-      <div class="link-form flex items-center gap-2 mb-2">
-        <input type="text" name="links-__prefix__-name" class="border-2 border-black p-2 flex-1" placeholder="Nazwa linku">
-        <input type="url" name="links-__prefix__-url" class="border-2 border-black p-2 flex-1" placeholder="https://...">
+      <div class="link-form flex flex-col md:flex-row items-center gap-2 mb-2">
+        <input type="url" name="links-__prefix__-url" class="border-2 font-light border-black p-2 flex-1" placeholder="http://...">
+        <input type="text" name="links-__prefix__-name" class="border-2 font-light border-black p-2 flex-1" placeholder="nazwij link">
       </div>
     `;
 
@@ -280,7 +329,44 @@
     });
   });
 
-   document.addEventListener('DOMContentLoaded', () => {
+// --- Obsługa dodawania plików ---
+const addFileBtn = document.getElementById('add-file-form');
+  const fileContainer = document.getElementById('file-form-container');
+  const totalFileFormsInput = document.querySelector('input[name="files-TOTAL_FORMS"]');
+  const MAX_FILES = 3;
+
+  function updateFileButtonState() {
+    const currentFiles = parseInt(totalFileFormsInput.value);
+    if (currentFiles >= MAX_FILES) {
+      addFileBtn.disabled = true;
+      addFileBtn.classList.add('opacity-50', 'cursor-not-allowed');
+    } else {
+      addFileBtn.disabled = false;
+      addFileBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
+  }
+
+  const fileFormTemplate = `
+      <div class="file-form flex flex-col md:flex-row items-center gap-2 mb-2">
+        <input type="text" name="files-__prefix__-name" class="border-2 border-black p-2 w-full md:w-1/2 font-light" placeholder="nazwij plik">
+        <input type="file" name="files-__prefix__-file" class="border-2 border-black p-1.5 w-full md:w-1/2 font-light file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
+      </div>
+    `;
+
+    addFileBtn.addEventListener('click', function () {
+    let formNum = parseInt(totalFileFormsInput.value);
+    if (formNum < MAX_FILES) {
+      let newForm = fileFormTemplate.replace(/__prefix__/g, formNum);
+      fileContainer.insertAdjacentHTML('beforeend', newForm);
+      totalFileFormsInput.value = formNum + 1;
+      updateFileButtonState(); // Zaktualizuj stan przycisku po dodaniu
+    }
+  });
+
+  updateFileButtonState();
+
+  // --- wybór finansowania ---
+  document.addEventListener('DOMContentLoaded', () => {
     const financingSelect = document.getElementById('{{ form.financing_type.id_for_label }}');
     const otherContainer = document.getElementById('financing_type_other_container');
     const otherInput = document.getElementById('{{ form.financing_type_other.id_for_label }}');
@@ -311,10 +397,10 @@
         if (!label) return;
         const placeholder = label.querySelector('.placeholder');
         const preview = label.querySelector('img.preview');
-        
+
         if (input.files && input.files[0]) {
           const file = input.files[0];
-          
+
           // Sprawdź czy to plik HEIC/HEIF
           if (file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif')) {
             try {
@@ -339,7 +425,7 @@
             // Standardowe pliki obrazów
             preview.src = URL.createObjectURL(file);
           }
-          
+
           preview.classList.remove('hidden');
           placeholder.classList.add('hidden');
         } else {

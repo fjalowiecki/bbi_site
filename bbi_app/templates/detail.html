@@ -39,10 +39,19 @@
         {% endif %}
 
         {% if project.links.all %}
-        <div class="pb-2 md:col-span-2">
+        <div class="pb-2">
           <h3 class="font-bold">Materiały zewnętrzne</h3>
           {% for link in project.links.all %}
           <p class="font-light leading-tight"><a href="{{ link.url }}" target="_blank" class="hover:underline">{{ link.name }}</a></p>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if project.files.all %}
+        <div class="pb-2">
+          <h3 class="font-bold">Pliki do pobrania</h3>
+          {% for file in project.files.all %}
+          <p class="font-light leading-tight"><a href="{{ file.file.url }}" download class="hover:underline">{{ file.name }}</a></p>
           {% endfor %}
         </div>
         {% endif %}

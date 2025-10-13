@@ -1,9 +1,8 @@
+import io, os, pillow_heif
 from django import forms
-from .models import Project, ProjectLink
+from .models import Project, ProjectLink, ProjectFile
 from PIL import Image
-import pillow_heif
 from django.core.files.uploadedfile import InMemoryUploadedFile
-import io
 
 # Zarejestruj obsługę HEIF w Pillow
 pillow_heif.register_heif_opener()
@@ -131,6 +130,39 @@ ProjectLinkFormSet = forms.inlineformset_factory(
     ProjectLink,
     form=ProjectLinkForm,
     fields=('name', 'url'),
+    extra=1,
+    can_delete=False
+)
+
+class ProjectFileForm(forms.ModelForm):
+    class Meta:
+        model = ProjectFile
+        fields = ('name', 'file')
+
+    def clean_file(self):
+        file = self.cleaned_data.get('file')
+        if file:
+            # Walidacja rozmiaru
+            if file.size > 10 * 1024 * 1024:  # 10MB
+                raise forms.ValidationError('Rozmiar pliku nie może przekraczać 10MB.')
+
+            # Walidacja typu pliku
+            ext = os.path.splitext(file.name)[1]  # Pobierz rozszerzenie pliku
+            valid_extensions = [
+                '.pdf', '.doc', '.docx', '.txt', '.rtf', '.odt',  # Tekstowe
+                '.jpg', '.jpeg', '.png', '.gif', '.svg', '.bmp', '.webp', '.heic', # Graficzne
+                '.mp4', '.mov', '.avi', '.wmv', '.mkv', '.webm' # Wideo
+            ]
+            if not ext.lower() in valid_extensions:
+                raise forms.ValidationError('Niedozwolony typ pliku. Akceptowane są pliki tekstowe (np. PDF, DOCX), graficzne (np. JPG, PNG) oraz wideo (np. MP4, MOV).')
+                
+        return file
+
+ProjectFileFormSet = forms.inlineformset_factory(
+    Project,
+    ProjectFile,
+    form=ProjectFileForm,
+    fields=('name', 'file'),
     extra=1,
     can_delete=False
 )
