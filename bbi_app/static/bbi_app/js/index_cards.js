@@ -14,27 +14,89 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardsPerPage = 4;
     let currentPage = 0;
     let autoSwitchInterval;
+    let maxWidth = 0;
+    
+    // Oblicz maksymalną szerokość ze wszystkich widoków
+    function calculateMaxWidth() {
+        // Nie ustawiaj stałej szerokości na małych ekranach (mobile)
+        const isMobile = window.innerWidth < 768;
+        
+        if (isMobile) {
+            // Na mobile tylko pokaż pierwszą stronę
+            showPage(0);
+            return;
+        }
+        
+        let calculatedMaxWidth = 0;
+        
+        // Sprawdź szerokość dla każdej strony
+        for (let page = 0; page < dots.length; page++) {
+            const startIndex = page * cardsPerPage;
+            const endIndex = startIndex + cardsPerPage;
+            
+            // Pokaż tylko karty dla tej strony
+            projectCards.forEach((card, index) => {
+                if (index >= startIndex && index < endIndex) {
+                    card.style.display = '';
+                    card.style.visibility = 'visible';
+                    card.style.position = 'relative';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+            
+            // Wymuszenie przeliczenia layoutu
+            cardsContainer.offsetHeight;
+            
+            // Zapisz szerokość
+            const currentWidth = cardsContainer.offsetWidth;
+            if (currentWidth > calculatedMaxWidth) {
+                calculatedMaxWidth = currentWidth;
+            }
+        }
+        
+        // Ustaw stałą szerokość tylko na desktop
+        if (calculatedMaxWidth > 0) {
+            cardsContainer.style.width = calculatedMaxWidth + 'px';
+            cardsContainer.style.minWidth = calculatedMaxWidth + 'px';
+            cardsContainer.style.maxWidth = calculatedMaxWidth + 'px';
+        }
+        
+        maxWidth = calculatedMaxWidth;
+        
+        // Przywróć widok pierwszej strony
+        showPage(0);
+    }
+    
+    // Oblicz maksymalną szerokość po załadowaniu
+    setTimeout(() => {
+        calculateMaxWidth();
+        startAutoSwitch();
+    }, 100);
 
     function showPage(pageNumber) {
         currentPage = pageNumber;
         const startIndex = pageNumber * cardsPerPage;
         const endIndex = startIndex + cardsPerPage;
 
+        // Fade out wszystkie karty
         projectCards.forEach(card => {
-            if (!card.classList.contains('hidden')) {
-                card.classList.add('opacity-0');
-            }
+            card.classList.add('opacity-0');
         });
 
         setTimeout(() => {
             projectCards.forEach((card, index) => {
                 if (index >= startIndex && index < endIndex) {
-                    card.classList.remove('hidden');
+                    card.style.display = '';
+                    card.style.visibility = 'visible';
+                    card.style.position = 'relative';
                     requestAnimationFrame(() => {
                         card.classList.remove('opacity-0');
                     });
                 } else {
-                    card.classList.add('hidden');
+                    card.style.display = 'none';
+                    card.style.visibility = 'hidden';
+                    card.style.position = 'absolute';
                     card.classList.add('opacity-0');
                 }
             });
@@ -65,8 +127,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    if (dots.length > 0) {
-        showPage(0);
-        startAutoSwitch();
-    }
+    // Obsługa zmiany rozmiaru okna
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            const isMobile = window.innerWidth < 768;
+            
+            if (isMobile) {
+                // Usuń stałą szerokość na mobile
+                cardsContainer.style.width = '';
+                cardsContainer.style.minWidth = '';
+                cardsContainer.style.maxWidth = '';
+            } else {
+                // Przelicz szerokość na desktop
+                calculateMaxWidth();
+            }
+        }, 250);
+    });
 });

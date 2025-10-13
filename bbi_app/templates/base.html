@@ -11,11 +11,13 @@
     <title>{% block title %}Bank pomysłów{% endblock %}</title>
 </head>
 
-<body class="min-h-screen flex flex-col font-[Unbounded] text-base mx-12">
-    {% include 'header_main.html' %}
-    {% block content %}
-    {% endblock %}
-    {% include 'footer.html' %}
+<body class="min-h-screen flex flex-col font-[Unbounded] text-base">
+    <div class="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-screen-2xl flex-grow flex flex-col">
+        {% include 'header_main.html' %}
+        {% block content %}
+        {% endblock %}
+        {% include 'footer.html' %}
+    </div>
 </body>
 
 </html>

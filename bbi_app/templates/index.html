@@ -4,7 +4,7 @@
 {% block title %}bank pomysłów{% endblock %}
 {% block content %}
 <main class="flex-1 flex flex-col lg:flex-row gap-8 lg:gap-16">
-    <section class="w-full lg:w-1/2 flex flex-col justify-center mt-[5vh] lg:mt-[10vh]">
+    <section class="w-full lg:w-1/2 flex flex-col justify-center mt-[5vh] lg:mt-0">
         <h1 class="text-5xl md:text-7xl font-medium">Zainspiruj się!</h1>
         <p class="font-light leading-tight mt-4 md:mt-7">Bank Pomysłów powstał z myślą o mieszkańcach i mieszkankach, którzy
             chcą podzielić się swoimi zrealizowanymi inicjatywami. Znajdziesz tu projekty społeczne, sąsiedzkie i inne
@@ -33,7 +33,7 @@
             {% endfor %}
         </div>
     </section>
-    <section class="w-full lg:w-1/2 flex flex-col flex-1">
+    <section class="w-full lg:w-1/2 flex flex-col flex-1 px-4 md:px-0">
         <img src="{% static 'bbi_app/images/section_logo.svg' %}" alt="Section logo" class="w-[2rem] h-[2rem]">
         <span class="flex flex-col leading-none ml-[2rem]">
             <span>ostatnio</span>
