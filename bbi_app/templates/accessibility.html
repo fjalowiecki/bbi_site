@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Dostępność - Bank pomysłów{% endblock %}
+{% block content %}
+<main id="main-content" class="flex-1 py-8" role="main">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-4xl md:text-5xl font-medium mb-8">Deklaracja dostępności</h1>
+        
+        <section class="mb-8" aria-labelledby="intro-heading">
+            <h2 id="intro-heading" class="text-2xl font-medium mb-4">Wprowadzenie</h2>
+            <p class="font-light leading-relaxed mb-4">
+                Bank Pomysłów zobowiązuje się zapewnić dostępność swojej strony internetowej zgodnie z ustawą 
+                z dnia 4 kwietnia 2019 r. o dostępności cyfrowej stron internetowych i aplikacji mobilnych 
+                podmiotów publicznych. Niniejsza deklaracja dostępności dotyczy strony internetowej Banku Pomysłów.
+            </p>
+        </section>
+
+        <section class="mb-8" aria-labelledby="status-heading">
+            <h2 id="status-heading" class="text-2xl font-medium mb-4">Status zgodności</h2>
+            <p class="font-light leading-relaxed mb-4">
+                Strona internetowa jest częściowo zgodna z ustawą o dostępności cyfrowej stron internetowych 
+                i aplikacji mobilnych podmiotów publicznych z powodu niezgodności lub wyłączeń wymienionych poniżej.
+            </p>
+        </section>
+
+        <section class="mb-8" aria-labelledby="features-heading">
+            <h2 id="features-heading" class="text-2xl font-medium mb-4">Funkcje dostępności</h2>
+            <p class="font-light leading-relaxed mb-4">Strona internetowa posiada następujące funkcje ułatwiające dostęp:</p>
+            <ul class="list-disc list-inside font-light leading-relaxed space-y-2 ml-4">
+                <li>Nawigacja klawiaturowa - wszystkie funkcje są dostępne za pomocą klawiatury</li>
+                <li>Link "Przejdź do głównej treści" umożliwiający pominięcie nawigacji</li>
+                <li>Wyraźne wskaźniki focus dla elementów interaktywnych</li>
+                <li>Poprawna struktura nagłówków (H1-H6)</li>
+                <li>Opisowe etykiety dla wszystkich pól formularzy</li>
+                <li>Atrybuty ARIA dla lepszej kompatybilności z czytnikami ekranu</li>
+                <li>Teksty alternatywne dla obrazów</li>
+                <li>Responsywny design dostosowany do urządzeń mobilnych</li>
+                <li>Obsługa gestów przesuwania (swipe) na urządzeniach dotykowych</li>
+            </ul>
+        </section>
+
+        <section class="mb-8" aria-labelledby="wcag-heading">
+            <h2 id="wcag-heading" class="text-2xl font-medium mb-4">Zgodność z WCAG 2.1</h2>
+            <p class="font-light leading-relaxed mb-4">
+                Strona została zaprojektowana zgodnie z Wytycznymi dla Dostępności Treści Internetowych (WCAG) 2.1 
+                na poziomie AA. Obejmuje to:
+            </p>
+            <ul class="list-disc list-inside font-light leading-relaxed space-y-2 ml-4">
+                <li><strong>Postrzegalność:</strong> Treści są prezentowane w sposób, który użytkownicy mogą postrzegać</li>
+                <li><strong>Funkcjonalność:</strong> Komponenty interfejsu są w pełni funkcjonalne</li>
+                <li><strong>Zrozumiałość:</strong> Informacje i obsługa interfejsu są zrozumiałe</li>
+                <li><strong>Solidność:</strong> Treść może być interpretowana przez różne technologie wspomagające</li>
+            </ul>
+        </section>
+
+        <section class="mb-8" aria-labelledby="keyboard-heading">
+            <h2 id="keyboard-heading" class="text-2xl font-medium mb-4">Nawigacja klawiaturowa</h2>
+            <p class="font-light leading-relaxed mb-4">Skróty klawiszowe dla nawigacji po stronie:</p>
+            <ul class="list-disc list-inside font-light leading-relaxed space-y-2 ml-4">
+                <li><strong>Tab:</strong> Przejście do następnego elementu interaktywnego</li>
+                <li><strong>Shift + Tab:</strong> Przejście do poprzedniego elementu interaktywnego</li>
+                <li><strong>Enter:</strong> Aktywacja linku lub przycisku</li>
+                <li><strong>Spacja:</strong> Aktywacja przycisku lub zaznaczenie checkboxa</li>
+                <li><strong>Strzałki:</strong> Nawigacja po elementach karuzeli</li>
+            </ul>
+        </section>
+
+        <section class="mb-8" aria-labelledby="screen-readers-heading">
+            <h2 id="screen-readers-heading" class="text-2xl font-medium mb-4">Czytniki ekranu</h2>
+            <p class="font-light leading-relaxed mb-4">
+                Strona została przetestowana z następującymi czytnikami ekranu i przeglądarkami:
+            </p>
+            <ul class="list-disc list-inside font-light leading-relaxed space-y-2 ml-4">
+                <li>NVDA + Firefox (Windows)</li>
+                <li>JAWS + Chrome (Windows)</li>
+                <li>VoiceOver + Safari (macOS, iOS)</li>
+                <li>TalkBack + Chrome (Android)</li>
+            </ul>
+        </section>
+
+        <section class="mb-8" aria-labelledby="preparation-heading">
+            <h2 id="preparation-heading" class="text-2xl font-medium mb-4">Data sporządzenia deklaracji</h2>
+            <p class="font-light leading-relaxed mb-4">
+                Deklaracja sporządzona dnia: <strong>{{ current_date|date:"d.m.Y" }}</strong>
+            </p>
+            <p class="font-light leading-relaxed mb-4">
+                Deklaracja została ostatnio poddana przeglądowi i aktualizacji dnia: <strong>{{ current_date|date:"d.m.Y" }}</strong>
+            </p>
+        </section>
+
+        <section class="mb-8" aria-labelledby="contact-heading">
+            <h2 id="contact-heading" class="text-2xl font-medium mb-4">Informacje zwrotne i dane kontaktowe</h2>
+            <p class="font-light leading-relaxed mb-4">
+                W przypadku problemów z dostępnością strony internetowej prosimy o kontakt:
+            </p>
+            <div class="bg-gray-100 p-6 rounded-lg font-light">
+                <p class="mb-2"><strong>Email:</strong> <a href="mailto:lokal.wbytomiu@gmail.com" class="text-[#21B47E] hover:underline">lokal.wbytomiu@gmail.com</a></p>
+                <p class="mb-2"><strong>Telefon:</strong> Dostępny na życzenie</p>
+            </div>
+            <p class="font-light leading-relaxed mt-4">
+                Tą samą drogą można składać wnioski o udostępnienie informacji niedostępnej oraz składać żądania 
+                zapewnienia dostępności. Odpowiedzi na zgłoszenia udzielamy w ciągu 7 dni roboczych.
+            </p>
+        </section>
+
+        <section class="mb-8" aria-labelledby="procedure-heading">
+            <h2 id="procedure-heading" class="text-2xl font-medium mb-4">Procedura wnioskowo-skargowa</h2>
+            <p class="font-light leading-relaxed mb-4">
+                Każdy ma prawo do wystąpienia z żądaniem zapewnienia dostępności cyfrowej strony internetowej, 
+                aplikacji mobilnej lub jakiegoś ich elementu. Można także zażądać udostępnienia informacji 
+                w formach alternatywnych, na przykład odczytanie niedostępnego cyfrowo dokumentu, opisania 
+                zawartości filmu bez audiodeskrypcji itp.
+            </p>
+            <p class="font-light leading-relaxed mb-4">
+                Żądanie powinno zawierać:
+            </p>
+            <ul class="list-disc list-inside font-light leading-relaxed space-y-2 ml-4">
+                <li>Dane osoby zgłaszającej żądanie</li>
+                <li>Wskazanie strony internetowej, aplikacji mobilnej lub elementu</li>
+                <li>Sposób kontaktu</li>
+            </ul>
+            <p class="font-light leading-relaxed mt-4 mb-4">
+                Jeżeli osoba żądająca zgłasza potrzebę otrzymania informacji w alternatywnej formie, powinna 
+                także określić formę tej informacji.
+            </p>
+            <p class="font-light leading-relaxed mb-4">
+                Rozpatrzenie żądania powinno nastąpić niezwłocznie, najpóźniej w ciągu 7 dni. Jeśli dotrzymanie 
+                tego terminu nie jest możliwe, należy powiadomić o tym wnoszącego żądanie, kiedy realizacja 
+                żądania będzie możliwa (nie później niż w ciągu 2 miesięcy od momentu zgłoszenia).
+            </p>
+        </section>
+
+        <section class="mb-8" aria-labelledby="improvements-heading">
+            <h2 id="improvements-heading" class="text-2xl font-medium mb-4">Ciągłe doskonalenie</h2>
+            <p class="font-light leading-relaxed mb-4">
+                Jesteśmy zobowiązani do ciągłego ulepszania dostępności naszej strony internetowej. 
+                Regularnie przeprowadzamy audyty dostępności i wdrażamy poprawki. Wszelkie uwagi i sugestie 
+                są dla nas cenne i pomagają w tworzeniu bardziej dostępnej strony dla wszystkich użytkowników.
+            </p>
+        </section>
+
+        <div class="mt-12 pt-8 border-t border-gray-300">
+            <p class="text-sm text-gray-600 font-light">
+                Ostatnia aktualizacja: {{ current_date|date:"d.m.Y" }}
+            </p>
+        </div>
+    </div>
+</main>
+{% endblock %}
+

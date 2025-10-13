@@ -1,10 +1,10 @@
 {% load static %}
-<header class="relative">
-    <nav class="flex justify-between items-start gap-4 mt-8">
+<header class="relative" role="banner">
+    <nav class="flex justify-between items-start gap-4 mt-8" role="navigation" aria-label="Główna nawigacja">
         <div>
-            <a href="{% url 'bbi_app:index' %}" class="inline-block">
-                <img src="{% static 'bbi_app/images/logo.svg' %}" alt="Logo" class="w-[2rem] h-[2rem] float-left">
-                <span class="flex flex-col leading-none ml-[2.5rem] font-medium">
+            <a href="{% url 'bbi_app:index' %}" class="inline-block" aria-label="Strona główna - Bank Pomysłów">
+                <img src="{% static 'bbi_app/images/logo.svg' %}" alt="" aria-hidden="true" class="w-[2rem] h-[2rem] float-left">
+                <span class="flex flex-col leading-none ml-[2.5rem] font-medium" aria-hidden="true">
                     <span>bank</span>
                     <span>pomysłów</span>
                 </span>
@@ -12,17 +12,17 @@
         </div>
         <!-- Desktop Menu -->
         <div class="hidden md:flex gap-10 items-start">
-            <a href="{% url 'bbi_app:project_list' %}" class="inline-flex items-center gap-2">
-                <img src="{% static 'bbi_app/images/button_browse.svg' %}" alt="Browse button"
+            <a href="{% url 'bbi_app:project_list' %}" class="inline-flex items-center gap-2" aria-label="Przeglądaj pomysły">
+                <img src="{% static 'bbi_app/images/button_browse.svg' %}" alt="" aria-hidden="true"
                     class="w-[2rem] h-[2rem]">
-                <span class="flex flex-col leading-none -mt-1">
+                <span class="flex flex-col leading-none -mt-1" aria-hidden="true">
                     <span>przeglądaj</span>
                     <span>pomysły</span>
                 </span>
             </a>
-            <a href="{% url 'bbi_app:add_project' %}" class="inline-flex items-center gap-2">
-                <img src="{% static 'bbi_app/images/button_add.svg' %}" alt="Add button" class="w-[2rem] h-[2rem]">
-                <span class="flex flex-col leading-none -mt-1">
+            <a href="{% url 'bbi_app:add_project' %}" class="inline-flex items-center gap-2" aria-label="Dodaj pomysł">
+                <img src="{% static 'bbi_app/images/button_add.svg' %}" alt="" aria-hidden="true" class="w-[2rem] h-[2rem]">
+                <span class="flex flex-col leading-none -mt-1" aria-hidden="true">
                     <span>dodaj</span>
                     <span>pomysł</span>
                 </span>
@@ -30,24 +30,25 @@
         </div>
         <!-- Hamburger Button -->
         <div class="md:hidden flex items-center">
-            <button id="hamburger-button" class="focus:outline-none z-40 relative">
-                <img src="{% static 'bbi_app/images/button_menu_mobile.svg' %}" alt="Menu" class="w-8 h-8">
+            <button id="hamburger-button" class="z-40 relative" aria-label="Menu" aria-expanded="false" aria-controls="mobile-menu">
+                <img src="{% static 'bbi_app/images/button_menu_mobile.svg' %}" alt="" aria-hidden="true" class="w-8 h-8">
             </button>
         </div>
     </nav>
 
     <div id="mobile-menu" class="hidden md:hidden absolute top-0 left-0 right-0 bg-white z-30 pt-24">
-        <form method="GET" action="{% url 'bbi_app:project_list' %}" class="flex items-center mb-4">
+        <form method="GET" action="{% url 'bbi_app:project_list' %}" class="flex items-center mb-4" role="search">
             <div class="flex flex-1 items-center gap-2 min-w-0">
-                <span class="text-3xl font-extralight -mt-1">[</span>
-                <input type="text" name="q" placeholder="Znajdź pomysł..."
-                    class="flex-1 font-extralight focus:outline-none text-gray-900 bg-transparent min-w-0">
+                <span class="text-3xl font-extralight -mt-1" aria-hidden="true">[</span>
+                <label for="mobile-search" class="sr-only">Wyszukaj pomysł</label>
+                <input type="text" id="mobile-search" name="q" placeholder="Znajdź pomysł..."
+                    class="flex-1 font-extralight text-gray-900 bg-transparent min-w-0" aria-label="Wyszukaj pomysł">
             </div>
             <div class="flex items-center gap-2">
-                <button type="submit" class="flex items-center">
+                <button type="submit" class="flex items-center" aria-label="Szukaj pomysłu">
                     <span class="">szukaj</span></button>
-                    <img src="{% static 'bbi_app/images/button_search_menu_mobile.svg' %}" alt="Search button" class="w-[2rem] h-[2rem]">
-                <span class="text-3xl font-extralight -mt-1">]</span>
+                    <img src="{% static 'bbi_app/images/button_search_menu_mobile.svg' %}" alt="" aria-hidden="true" class="w-[2rem] h-[2rem]">
+                <span class="text-3xl font-extralight -mt-1" aria-hidden="true">]</span>
             </div>
         </form>
         <div class="flex flex-col items-end">
@@ -68,6 +69,9 @@
 <script>
     document.getElementById('hamburger-button').addEventListener('click', function () {
         var mobileMenu = document.getElementById('mobile-menu');
+        var isExpanded = this.getAttribute('aria-expanded') === 'true';
+        
         mobileMenu.classList.toggle('hidden');
+        this.setAttribute('aria-expanded', !isExpanded);
     });
 </script>

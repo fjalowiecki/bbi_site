@@ -104,8 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
         dots.forEach((dot, index) => {
             dot.classList.remove('outline', 'outline-2', 'outline-[rgb(241,189,51)]');
+            dot.setAttribute('aria-selected', 'false');
             if (index === pageNumber) {
                 dot.classList.add('outline', 'outline-2', 'outline-[rgb(241,189,51)]');
+                dot.setAttribute('aria-selected', 'true');
             }
         });
     }

@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .models import Project, Tag
 from .forms import ProjectForm, ProjectLinkFormSet, ProjectFileFormSet
 from django.db.models import Q
+from django.utils import timezone
 
 def index(request):
     tags = Tag.objects.all()
@@ -67,3 +68,7 @@ def project_added_success(request):
 
 def regulations(request):
     return render(request, 'regulations.html')
+
+def accessibility(request):
+    current_date = timezone.now()
+    return render(request, 'accessibility.html', {'current_date': current_date})

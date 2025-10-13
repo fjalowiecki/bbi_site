@@ -1,17 +1,17 @@
 {% load static %}
-<footer class="mt-auto mb-4">
+<footer class="mt-auto mb-4" role="contentinfo">
     <div class="flex flex-col md:flex-row md:justify-between items-center md:items-start gap-4 mt-2 text-gray-600 text-[0.65rem]">
-        <div class="flex gap-2 items-center ml-2 md:ml-0">
-            <a href="{% url 'bbi_app:regulations' %}">regulamin</a>
-            <img src="{% static 'bbi_app/images/footer_separator.svg' %}" class="h-[2rem]">
-            <a href="/">dostępność</a>
-        </div>
+        <nav class="flex gap-2 items-center ml-2 md:ml-0" aria-label="Linki stopki">
+            <a href="{% url 'bbi_app:regulations' %}" class="hover:underline">regulamin</a>
+            <img src="{% static 'bbi_app/images/footer_separator.svg' %}" alt="" aria-hidden="true" class="h-[2rem]">
+            <a href="{% url 'bbi_app:accessibility' %}" class="hover:underline">dostępność</a>
+        </nav>
         <div class="flex gap-2 items-center">
-            <img src="{% static 'bbi_app/images/footer_mail.svg' %}" class="h-[1.8rem]">
-            <span>lokal.wbytomiu@gmail.com</span>
+            <img src="{% static 'bbi_app/images/footer_mail.svg' %}" alt="Email" class="h-[1.8rem]">
+            <a href="mailto:lokal.wbytomiu@gmail.com" class="hover:underline">lokal.wbytomiu@gmail.com</a>
         </div>
         <div>
-            <img src="{% static 'bbi_app/images/footer_logos.svg' %}" class="h-[1.5rem] mt-1 md:mt-0">
+            <img src="{% static 'bbi_app/images/footer_logos.svg' %}" alt="Loga partnerów" class="h-[1.5rem] mt-1 md:mt-0">
         </div>
     </div>
 </footer>

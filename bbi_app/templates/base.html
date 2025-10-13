@@ -8,10 +8,44 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Skip to main content link */
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #000;
+            color: #fff;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+        .skip-link:focus {
+            top: 0;
+        }
+        /* Lepsze focus indicators */
+        *:focus-visible {
+            outline: 2px solid #21B47E;
+            outline-offset: 2px;
+        }
+        /* Screen reader only */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+    </style>
     <title>{% block title %}Bank pomysłów{% endblock %}</title>
 </head>
 
 <body class="min-h-screen flex flex-col font-[Unbounded] text-base">
+    <a href="#main-content" class="skip-link">Przejdź do głównej treści</a>
     <div class="mx-auto w-full px-4 sm:px-6 lg:px-8 max-w-screen-2xl flex-grow flex flex-col">
         {% include 'header_main.html' %}
         {% block content %}

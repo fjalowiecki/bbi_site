@@ -3,24 +3,25 @@
 
 {% block title %}bank pomysłów{% endblock %}
 {% block content %}
-<main class="flex-1 flex flex-col lg:flex-row gap-8 lg:gap-16">
-    <section class="w-full lg:w-1/2 flex flex-col justify-center mt-[5vh] lg:mt-0">
-        <h1 class="text-5xl md:text-7xl font-medium">Zainspiruj się!</h1>
+<main id="main-content" class="flex-1 flex flex-col lg:flex-row gap-8 lg:gap-16" role="main">
+    <section class="w-full lg:w-1/2 flex flex-col justify-center mt-[5vh] lg:mt-0" aria-labelledby="main-heading">
+        <h1 id="main-heading" class="text-5xl md:text-7xl font-medium">Zainspiruj się!</h1>
         <p class="font-light leading-tight mt-4 md:mt-7">Bank Pomysłów powstał z myślą o mieszkańcach i mieszkankach, którzy
             chcą podzielić się swoimi zrealizowanymi inicjatywami. Znajdziesz tu projekty społeczne, sąsiedzkie i inne
             lokalne działania, które pokazują, że warto się angażować. To miejsce spotkań pomysłów, wymiany doświadczeń
             i dowód na to, że razem możemy zmieniać naszą codzienność.<br>Dodaj swój pomysł i zainspiruj innych!</p>
-        <form method="GET" action="{% url 'bbi_app:project_list' %}" class="mt-10 flex items-center">
+        <form method="GET" action="{% url 'bbi_app:project_list' %}" class="mt-10 flex items-center" role="search">
             <div class="flex flex-1 items-center gap-2 min-w-0">
-                <span class="text-4xl font-extralight -mt-1">[</span>
-                <input type="text" name="q" placeholder="Znajdź pomysł..."
-                    class="flex flex-1 font-extralight focus:outline-none text-gray-900 min-w-0">
+                <span class="text-4xl font-extralight -mt-1" aria-hidden="true">[</span>
+                <label for="search-input" class="sr-only">Wyszukaj pomysł</label>
+                <input type="text" id="search-input" name="q" placeholder="Znajdź pomysł..."
+                    class="flex flex-1 font-extralight text-gray-900 min-w-0 focus:outline-none" aria-label="Wyszukaj pomysł">
             </div>
             <div class="flex items-center gap-2">
-                <button type="submit" class="flex gap-2 items-center"><img
-                        src="{% static 'bbi_app/images/button_search.svg' %}" alt="Search button"
-                        class="w-[2rem] h-[2rem]"><span>szukaj</span></button>
-                <span class="text-4xl font-extralight -mt-1">]</span>
+                <button type="submit" class="flex gap-2 items-center" aria-label="Szukaj pomysłu"><img
+                        src="{% static 'bbi_app/images/button_search.svg' %}" alt="" aria-hidden="true"
+                        class="w-[2rem] h-[2rem]"><span aria-hidden="true">szukaj</span></button>
+                <span class="text-4xl font-extralight -mt-1" aria-hidden="true">]</span>
             </div>
         </form>
         <div class="c flex flex-wrap mt-10 leading-tight">
@@ -33,13 +34,13 @@
             {% endfor %}
         </div>
     </section>
-    <section class="w-full lg:w-1/2 flex flex-col flex-1 px-4 md:px-0">
-        <img src="{% static 'bbi_app/images/section_logo.svg' %}" alt="Section logo" class="w-[2rem] h-[2rem]">
-        <span class="flex flex-col leading-none ml-[2rem]">
+    <section class="w-full lg:w-1/2 flex flex-col flex-1 px-4 md:px-0" aria-labelledby="recent-projects-heading">
+        <img src="{% static 'bbi_app/images/section_logo.svg' %}" alt="" aria-hidden="true" class="w-[2rem] h-[2rem]">
+        <h2 id="recent-projects-heading" class="flex flex-col leading-none ml-[2rem]">
             <span>ostatnio</span>
             <span>dodane</span>
             <span>pomysły</span>
-        </span>
+        </h2>
         {% include 'index_cards.html' %}
     </section>
 </main>
