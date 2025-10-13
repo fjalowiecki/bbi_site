@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
@@ -23,12 +25,20 @@
         .skip-link:focus {
             top: 0;
         }
-        /* Lepsze focus indicators */
+        /* Lepsze focus indicators - z fallbackiem dla starszych Safari */
         *:focus-visible {
             outline: 2px solid #21B47E;
             outline-offset: 2px;
         }
-        /* Screen reader only */
+        /* Fallback dla Safari bez focus-visible */
+        *:focus:not(:focus-visible) {
+            outline: none;
+        }
+        *:focus {
+            outline: 2px solid #21B47E;
+            outline-offset: 2px;
+        }
+        /* Screen reader only - z clip-path dla Safari */
         .sr-only {
             position: absolute;
             width: 1px;
@@ -37,8 +47,36 @@
             margin: -1px;
             overflow: hidden;
             clip: rect(0, 0, 0, 0);
+            clip-path: inset(50%);
             white-space: nowrap;
             border-width: 0;
+        }
+        /* Fix dla min-h-screen na iOS Safari */
+        @supports (-webkit-touch-callout: none) {
+            body {
+                min-height: -webkit-fill-available;
+            }
+        }
+        /* Zapewnienie prawidłowego renderowania czcionek w Safari */
+        body {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        /* Fix dla touch events w iOS Safari */
+        * {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+        /* Zapobieganie problemom z overflow na iOS */
+        html {
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+        /* Fix dla position sticky w Safari */
+        @supports (-webkit-overflow-scrolling: touch) {
+            .sticky {
+                position: -webkit-sticky;
+                position: sticky;
+            }
         }
     </style>
     <title>{% block title %}Bank pomysłów{% endblock %}</title>

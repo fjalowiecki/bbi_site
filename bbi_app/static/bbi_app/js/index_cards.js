@@ -1,25 +1,25 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const cardsContainer = document.getElementById('project-cards-container');
+document.addEventListener('DOMContentLoaded', function() {
+    var cardsContainer = document.getElementById('project-cards-container');
     if (!cardsContainer) return;
 
-    const projectCards = Array.from(cardsContainer.getElementsByClassName('project-card'));
-    const paginationDotsContainer = document.getElementById('pagination-dots');
+    var projectCards = Array.from(cardsContainer.getElementsByClassName('project-card'));
+    var paginationDotsContainer = document.getElementById('pagination-dots');
 
     if (projectCards.length === 0 || !paginationDotsContainer) {
         if (paginationDotsContainer) paginationDotsContainer.style.display = 'none';
         return;
     }
 
-    const dots = Array.from(paginationDotsContainer.getElementsByClassName('pagination-dot'));
-    const cardsPerPage = 4;
-    let currentPage = 0;
-    let autoSwitchInterval;
-    let maxWidth = 0;
+    var dots = Array.from(paginationDotsContainer.getElementsByClassName('pagination-dot'));
+    var cardsPerPage = 4;
+    var currentPage = 0;
+    var autoSwitchInterval;
+    var maxWidth = 0;
     
     // Oblicz maksymalną szerokość ze wszystkich widoków
     function calculateMaxWidth() {
         // Nie ustawiaj stałej szerokości na małych ekranach (mobile)
-        const isMobile = window.innerWidth < 768;
+        var isMobile = window.innerWidth < 768;
         
         if (isMobile) {
             // Na mobile tylko pokaż pierwszą stronę
@@ -27,15 +27,15 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        let calculatedMaxWidth = 0;
+        var calculatedMaxWidth = 0;
         
         // Sprawdź szerokość dla każdej strony
-        for (let page = 0; page < dots.length; page++) {
-            const startIndex = page * cardsPerPage;
-            const endIndex = startIndex + cardsPerPage;
+        for (var page = 0; page < dots.length; page++) {
+            var startIndex = page * cardsPerPage;
+            var endIndex = startIndex + cardsPerPage;
             
             // Pokaż tylko karty dla tej strony
-            projectCards.forEach((card, index) => {
+            projectCards.forEach(function(card, index) {
                 if (index >= startIndex && index < endIndex) {
                     card.style.display = '';
                     card.style.visibility = 'visible';
@@ -49,7 +49,7 @@ document.addEventListener('DOMContentLoaded', () => {
             cardsContainer.offsetHeight;
             
             // Zapisz szerokość
-            const currentWidth = cardsContainer.offsetWidth;
+            var currentWidth = cardsContainer.offsetWidth;
             if (currentWidth > calculatedMaxWidth) {
                 calculatedMaxWidth = currentWidth;
             }
@@ -69,28 +69,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     // Oblicz maksymalną szerokość po załadowaniu
-    setTimeout(() => {
+    setTimeout(function() {
         calculateMaxWidth();
         startAutoSwitch();
     }, 100);
 
     function showPage(pageNumber) {
         currentPage = pageNumber;
-        const startIndex = pageNumber * cardsPerPage;
-        const endIndex = startIndex + cardsPerPage;
+        var startIndex = pageNumber * cardsPerPage;
+        var endIndex = startIndex + cardsPerPage;
 
         // Fade out wszystkie karty
-        projectCards.forEach(card => {
+        projectCards.forEach(function(card) {
             card.classList.add('opacity-0');
         });
 
-        setTimeout(() => {
-            projectCards.forEach((card, index) => {
+        setTimeout(function() {
+            projectCards.forEach(function(card, index) {
                 if (index >= startIndex && index < endIndex) {
                     card.style.display = '';
                     card.style.visibility = 'visible';
                     card.style.position = 'relative';
-                    requestAnimationFrame(() => {
+                    requestAnimationFrame(function() {
                         card.classList.remove('opacity-0');
                     });
                 } else {
@@ -102,7 +102,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }, 250);
 
-        dots.forEach((dot, index) => {
+        dots.forEach(function(dot, index) {
             dot.classList.remove('outline', 'outline-2', 'outline-[rgb(241,189,51)]');
             dot.setAttribute('aria-selected', 'false');
             if (index === pageNumber) {
@@ -114,37 +114,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function startAutoSwitch() {
         clearInterval(autoSwitchInterval);
-        autoSwitchInterval = setInterval(() => {
-            let nextPage = (currentPage + 1) % dots.length;
+        autoSwitchInterval = setInterval(function() {
+            var nextPage = (currentPage + 1) % dots.length;
             showPage(nextPage);
         }, 5000);
     }
 
-    dots.forEach(dot => {
-        dot.addEventListener('click', (event) => {
+    dots.forEach(function(dot) {
+        dot.addEventListener('click', function(event) {
             event.preventDefault();
-            const page = parseInt(dot.dataset.page);
+            var page = parseInt(dot.dataset.page);
             showPage(page);
             startAutoSwitch();
         });
     });
 
     // Obsługa swipe na mobile
-    let touchStartX = 0;
-    let touchEndX = 0;
-    const minSwipeDistance = 50; // Minimalna odległość przesunięcia w pikselach
+    var touchStartX = 0;
+    var touchEndX = 0;
+    var minSwipeDistance = 50; // Minimalna odległość przesunięcia w pikselach
 
-    cardsContainer.addEventListener('touchstart', (e) => {
+    cardsContainer.addEventListener('touchstart', function(e) {
         touchStartX = e.changedTouches[0].screenX;
     }, { passive: true });
 
-    cardsContainer.addEventListener('touchend', (e) => {
+    cardsContainer.addEventListener('touchend', function(e) {
         touchEndX = e.changedTouches[0].screenX;
         handleSwipe();
     }, { passive: true });
 
     function handleSwipe() {
-        const swipeDistance = touchEndX - touchStartX;
+        var swipeDistance = touchEndX - touchStartX;
         
         if (Math.abs(swipeDistance) < minSwipeDistance) {
             return; // Zbyt krótkie przesunięcie - ignoruj
@@ -152,11 +152,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (swipeDistance > 0) {
             // Swipe w prawo - poprzednia strona
-            const prevPage = currentPage === 0 ? dots.length - 1 : currentPage - 1;
+            var prevPage = currentPage === 0 ? dots.length - 1 : currentPage - 1;
             showPage(prevPage);
         } else {
             // Swipe w lewo - następna strona
-            const nextPage = (currentPage + 1) % dots.length;
+            var nextPage = (currentPage + 1) % dots.length;
             showPage(nextPage);
         }
         
@@ -165,11 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Obsługa zmiany rozmiaru okna
-    let resizeTimeout;
-    window.addEventListener('resize', () => {
+    var resizeTimeout;
+    window.addEventListener('resize', function() {
         clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            const isMobile = window.innerWidth < 768;
+        resizeTimeout = setTimeout(function() {
+            var isMobile = window.innerWidth < 768;
             
             if (isMobile) {
                 // Usuń stałą szerokość na mobile

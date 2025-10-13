@@ -239,20 +239,20 @@
               <div class="file-form mb-2">
                 <div class="flex flex-col md:flex-row items-start gap-2">
                   <div class="w-full md:w-1/2">
-                    {{ form.name|add_class:"border-2 border-black p-2 w-full font-light"|attr:"placeholder:nazwij plik" }}
-                    {% if form.name.errors %}
+                    {{ form.file|add_class:"border-2 border-black p-1.5 w-full font-light file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200" }}
+                    {% if form.file.errors %}
                       <div class="text-red-500 text-sm mt-1">
-                        {% for error in form.name.errors %}
+                        {% for error in form.file.errors %}
                           <p>{{ error }}</p>
                         {% endfor %}
                       </div>
                     {% endif %}
                   </div>
                   <div class="w-full md:w-1/2">
-                    {{ form.file|add_class:"border-2 border-black p-1.5 w-full font-light file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200" }}
-                    {% if form.file.errors %}
+                    {{ form.name|add_class:"border-2 border-black p-2 w-full font-light"|attr:"placeholder:nazwij plik" }}
+                    {% if form.name.errors %}
                       <div class="text-red-500 text-sm mt-1">
-                        {% for error in form.file.errors %}
+                        {% for error in form.name.errors %}
                           <p>{{ error }}</p>
                         {% endfor %}
                       </div>
@@ -348,8 +348,8 @@ const addFileBtn = document.getElementById('add-file-form');
 
   const fileFormTemplate = `
       <div class="file-form flex flex-col md:flex-row items-center gap-2 mb-2">
-        <input type="text" name="files-__prefix__-name" class="border-2 border-black p-2 w-full md:w-1/2 font-light" placeholder="nazwij plik">
         <input type="file" name="files-__prefix__-file" class="border-2 border-black p-1.5 w-full md:w-1/2 font-light file:mr-2 file:py-1 file:px-2 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200">
+        <input type="text" name="files-__prefix__-name" class="border-2 border-black p-2 w-full md:w-1/2 font-light" placeholder="nazwij plik">
       </div>
     `;
 
