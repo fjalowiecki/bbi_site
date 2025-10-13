@@ -127,6 +127,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Obsługa swipe na mobile
+    let touchStartX = 0;
+    let touchEndX = 0;
+    const minSwipeDistance = 50; // Minimalna odległość przesunięcia w pikselach
+
+    cardsContainer.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+    }, { passive: true });
+
+    cardsContainer.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, { passive: true });
+
+    function handleSwipe() {
+        const swipeDistance = touchEndX - touchStartX;
+        
+        if (Math.abs(swipeDistance) < minSwipeDistance) {
+            return; // Zbyt krótkie przesunięcie - ignoruj
+        }
+
+        if (swipeDistance > 0) {
+            // Swipe w prawo - poprzednia strona
+            const prevPage = currentPage === 0 ? dots.length - 1 : currentPage - 1;
+            showPage(prevPage);
+        } else {
+            // Swipe w lewo - następna strona
+            const nextPage = (currentPage + 1) % dots.length;
+            showPage(nextPage);
+        }
+        
+        // Zrestartuj auto-switch po ręcznym przesunięciu
+        startAutoSwitch();
+    }
+
     // Obsługa zmiany rozmiaru okna
     let resizeTimeout;
     window.addEventListener('resize', () => {
