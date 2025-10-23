@@ -33,7 +33,12 @@ DEBUG = 'RENDER' not in os.environ
 
 if 'RENDER' in os.environ:
     RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
-    ALLOWED_HOSTS = [RENDER_EXTERNAL_HOSTNAME, '.onrender.com']
+    ALLOWED_HOSTS = [
+        RENDER_EXTERNAL_HOSTNAME, 
+        '.onrender.com', 
+        'bankpomyslow.org.pl', 
+        'www.bankpomyslow.org.pl'
+    ]
 else:
     ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
