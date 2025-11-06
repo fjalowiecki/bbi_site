@@ -100,11 +100,22 @@ WSGI_APPLICATION = 'bbi_proj.wsgi.application'
 #         ssl_require=True
 #     )
 # }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
+default_db_url = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=default_db_url, 
+        conn_max_age=600, 
+        ssl_require='RENDER' in os.environ
+    )
 }
 
 # Password validation
