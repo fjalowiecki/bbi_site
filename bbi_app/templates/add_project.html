@@ -9,6 +9,7 @@
     <div class="w-full max-w-2xl py-6">
       <form method="POST" enctype="multipart/form-data" action="{% url 'bbi_app:add_project' %}" class="space-y-6">
         {% csrf_token %}
+
         <div class="flex flex-col">
           <label for="{{ form.title.id_for_label }}" class="mb-2">Tytuł działania:</label>
           {{ form.title|add_class:"border-2 border-black p-2"|attr:"maxlength:40" }}
@@ -21,6 +22,20 @@
           {% endif %}
           <span class="mt-2 text-right font-extralight text-xs"><span id="title-counter">0</span> z maksymalnie 40 znaków</span>
         </div>
+
+        <div class="flex flex-col">
+          <label for="{{ form.organization_name.id_for_label }}" class="mb-2">Nazwa organizacji lub grupy:</label>
+          {{ form.organization_name|add_class:"border-2 border-black p-2"|attr:"maxlength:40" }}
+          {% if form.organization_name.errors %}
+          <div class="text-red-500 text-sm mt-1">
+            {% for error in form.organization_name.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </div>
+          {% endif %}
+          <span class="mt-2 text-right font-extralight text-xs"><span id="organization_name-counter">0</span> z maksymalnie 40 znaków</span>
+        </div>
+
         <div class="flex flex-col">
           <label for="{{ form.description.id_for_label }}" class="mt-2">Opis działania:</label>
           <p class="mb-1 mt-2 text-sm font-extralight">Postarajcie się zawrzeć w opisie takie informacje jak:</p>
@@ -329,6 +344,7 @@
     
     // Inicjalizacja liczników
     setupCharCounter('{{ form.title.id_for_label }}', 'title-counter', 40);
+    setupCharCounter('{{ form.organization_name.id_for_label }}', 'organization_name-counter', 40);
     setupCharCounter('{{ form.description.id_for_label }}', 'description-counter', 500);
     setupCharCounter('{{ form.contact_info.id_for_label }}', 'contact-counter', 100);
     

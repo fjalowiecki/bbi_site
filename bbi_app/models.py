@@ -42,6 +42,7 @@ class Project(models.Model):
     YEAR_CHOICES = [(r, r) for r in range(2010, 2031)]
 
     title = models.CharField(max_length=250)
+    organization_name = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique=True)
     description = models.TextField()
     created = models.DateTimeField(auto_now_add=True)

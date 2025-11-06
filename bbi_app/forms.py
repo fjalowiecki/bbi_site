@@ -12,6 +12,7 @@ class ProjectForm(forms.ModelForm):
         model = Project
         fields = [
             'title', 
+            'organization_name',
             'description', 
             'year_of_completion',
             'location',
