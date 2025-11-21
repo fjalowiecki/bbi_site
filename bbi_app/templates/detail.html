@@ -2,6 +2,16 @@
 
 {% block title %}{{ project.title }}{% endblock %}
 
+{% block extra_meta %}
+  <meta property="og:title" content="{{ project.title }}">
+  <meta property="og:description" content="{{ project.description|truncatewords:25 }}">
+  {% if project.image1 %}
+  <meta property="og:image" content="{{ request.build_absolute_uri(project.image1.url) }}">
+  {% endif %}
+  <meta property="og:url" content="{{ request.build_absolute_uri }}">
+  <meta property="og:type" content="article">
+{% endblock %}
+
 {% block content %}
 <main class="container mx-auto py-6">
   <div class="flex flex-col md:flex-row md:gap-8">
@@ -33,13 +43,6 @@
           {% endif %}
         </div>
 
-        {% if project.contact_info %}
-        <div class="pb-2">
-          <h3 class="font-bold">Dane kontaktowe</h3>
-          <p class="font-light leading-tight">{{ project.contact_info|linebreaksbr }}</p>
-        </div>
-        {% endif %}
-
         {% if project.links.all %}
         <div class="pb-2">
           <h3 class="font-bold">Materiały zewnętrzne</h3>
@@ -58,6 +61,13 @@
         </div>
         {% endif %}
       </div>
+
+      {% if project.contact_info %}
+      <div class="mb-6">
+        <h3 class="font-bold">Dane kontaktowe</h3>
+        <p class="font-light leading-tight">{{ project.contact_info|linebreaksbr }}</p>
+      </div>
+      {% endif %}
 
       {% if project.tags.all %}
       <div class="mb-6">

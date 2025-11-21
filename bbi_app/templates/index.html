@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block extra_meta %}
+  <meta property="og:title" content="bank pomysłów">
+  <meta property="og:description" content="Dodaj swój pomysł i zainspiruj innych!">
+  <meta property="og:image" content="{{ request.build_absolute_uri(static('bbi_app/images/logo.svg')) }}">
+  <meta property="og:url" content="{{ request.build_absolute_uri(request.path) }}">
+  <meta property="og:type" content="website">
+{% endblock %}
+
 {% block title %}bank pomysłów{% endblock %}
 {% block content %}
 <main id="main-content" class="flex-1 flex flex-col lg:flex-row gap-8 lg:gap-16" role="main">
