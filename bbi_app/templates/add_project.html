@@ -2,7 +2,7 @@
 {% load widget_tweaks %}
 {% load static %}
 
-{% block title %}Add project{% endblock %}
+{% block title %}bank pomysłów - dodaj pomysł{% endblock %}
 {% block content %}
 <main>
   <div class="flex justify-center">
@@ -430,14 +430,41 @@ const addFileBtn = document.getElementById('add-file-form');
 
     // Podgląd zdjęć dla kafelków - z obsługą HEIC
     document.querySelectorAll('input.upload-input').forEach((input) => {
+      const MAX_IMAGE_SIZE_MB = 4;
+      const MAX_IMAGE_SIZE_BYTES = MAX_IMAGE_SIZE_MB * 1024 * 1024;
+
       input.addEventListener('change', async () => {
         const label = document.querySelector(`label[for="${input.id}"]`);
         if (!label) return;
         const placeholder = label.querySelector('.placeholder');
         const preview = label.querySelector('img.preview');
+        const parentContainer = input.parentElement;
+
+        // Usuń poprzedni komunikat o błędzie rozmiaru
+        const existingError = parentContainer.querySelector('.size-error-message');
+        if (existingError) {
+          existingError.remove();
+        }
 
         if (input.files && input.files[0]) {
           const file = input.files[0];
+
+          // --- NOWA WALIDACJA ROZMIARU ---
+          if (file.size > MAX_IMAGE_SIZE_BYTES) {
+            // Plik jest za duży
+            const errorDiv = document.createElement('div');
+            errorDiv.className = 'text-red-500 text-sm mt-1 size-error-message';
+            errorDiv.innerHTML = `<p>Plik jest za duży. Maksymalny rozmiar to ${MAX_IMAGE_SIZE_MB} MB.</p>`;
+            parentContainer.appendChild(errorDiv);
+
+            // Zresetuj pole input i podgląd
+            input.value = ''; // Ważne, aby nie wysłać pliku
+            preview.src = '';
+            preview.classList.add('hidden');
+            placeholder.classList.remove('hidden');
+            return; // Przerwij dalsze przetwarzanie
+          }
+          // --- KONIEC WALIDACJI ROZMIARU ---
 
           // Sprawdź czy to plik HEIC/HEIF
           if (file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif')) {
@@ -516,4 +543,6 @@ const addFileBtn = document.getElementById('add-file-form');
 
 <!-- Dodaj bibliotekę heic2any dla konwersji HEIC -->
 <script src="https://cdn.jsdelivr.net/npm/heic2any@0.0.4/dist/heic2any.min.js"></script>
+<!-- Dodaj bibliotekę do kompresji obrazów -->
+<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.2/dist/browser-image-compression.js"></script>
 {% endblock %}
