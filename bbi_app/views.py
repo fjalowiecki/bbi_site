@@ -5,6 +5,9 @@ from .models import Project, Tag
 from .forms import ProjectForm, ProjectLinkFormSet, ProjectFileFormSet
 from django.db.models import Q
 from django.utils import timezone
+from django.core.mail import send_mail
+from django.conf import settings
+from django.urls import reverse
 
 def index(request):
     tags = Tag.objects.all()
@@ -76,6 +79,34 @@ def add_project(request):
 
             file_formset.instance = project
             file_formset.save()
+            
+            # --- POCZĄTEK: Logika wysyłania e-maila ---
+            try:
+                subject = f'Nowy projekt w Banku Pomysłów: "{project.title}"'
+                
+                # Budowanie linku do panelu admina
+                admin_url = request.build_absolute_uri(
+                    reverse('admin:bbi_app_project_change', args=[project.id])
+                )
+                
+                message = (
+                    f'Użytkownik dodał nowy projekt o tytule: "{project.title}".\n\n'
+                    f'Możesz go przejrzeć i zaakceptować w panelu administracyjnym:\n'
+                    f'{admin_url}\n\n'
+                    f'--\n'
+                    f'Automatyczne powiadomienie z serwisu Bank Pomysłów.'
+                )
+                
+                send_mail(
+                    subject,
+                    message,
+                    settings.DEFAULT_FROM_EMAIL,
+                    [settings.ADMIN_EMAIL],
+                    fail_silently=False,
+                )
+            except Exception as e:
+                print(f"Błąd podczas wysyłania e-maila: {e}")
+            # --- KONIEC: Logika wysyłania e-maila ---
             
             return redirect('bbi_app:project_added_success')
     else:
