@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pl">
 
@@ -80,6 +81,11 @@
         }
     </style>
     <title>{% block title %}bank pomysłów{% endblock %}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'bbi_app/images/logo.svg' %}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{% static 'bbi_app/images/logo.svg' %}">
+    
 
     {% block extra_meta %}{% endblock %}
 </head>

@@ -4,8 +4,8 @@
 {% block extra_meta %}
   <meta property="og:title" content="bank pomysłów">
   <meta property="og:description" content="Dodaj swój pomysł i zainspiruj innych!">
-  <meta property="og:image" content="{{ request.build_absolute_uri(static('bbi_app/images/logo.svg')) }}">
-  <meta property="og:url" content="{{ request.build_absolute_uri(request.path) }}">
+  <meta property="og:image" content="{{ og_image_url }}">
+  <meta property="og:url" content="{{ og_url }}">
   <meta property="og:type" content="website">
 {% endblock %}
 

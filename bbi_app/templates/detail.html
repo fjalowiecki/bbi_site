@@ -1,14 +1,14 @@
 {% extends 'base.html' %}
 
-{% block title %}{{ project.title }}{% endblock %}
+{% block title %}bank pomysłów &middot; {{ project.title }}{% endblock %}
 
 {% block extra_meta %}
   <meta property="og:title" content="{{ project.title }}">
   <meta property="og:description" content="{{ project.description|truncatewords:25 }}">
-  {% if project.image1 %}
-  <meta property="og:image" content="{{ request.build_absolute_uri(project.image1.url) }}">
+  {% if og_image_url %}
+  <meta property="og:image" content="{{ og_image_url }}">
   {% endif %}
-  <meta property="og:url" content="{{ request.build_absolute_uri }}">
+  <meta property="og:url" content="{{ og_url }}">
   <meta property="og:type" content="article">
 {% endblock %}
 

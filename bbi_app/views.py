@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator
+from django.templatetags.static import static
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Project, Tag
 from .forms import ProjectForm, ProjectLinkFormSet, ProjectFileFormSet
@@ -8,8 +9,21 @@ from django.utils import timezone
 def index(request):
     tags = Tag.objects.all()
     projects = Project.objects.filter(is_approved=True).order_by('-id')[:12]
-    return render(request, 'index.html', {'projects': projects, 'tags': tags})
     
+    # Utwórz absolutny URL dla obrazka OG (logo)
+    og_image_url = request.build_absolute_uri(static('bbi_app/images/logo.svg'))
+
+    # Utwórz absolutny URL dla strony
+    og_url = request.build_absolute_uri()
+
+    context = {
+        'projects': projects, 
+        'tags': tags,
+        'og_image_url': og_image_url,
+        'og_url': og_url,
+    }
+    return render(request, 'index.html', context)
+
 def project_list(request):
     tags = Tag.objects.all()
     query = request.GET.get('q')
@@ -32,7 +46,21 @@ def project_list(request):
 
 def project_detail(request, slug): 
     project = get_object_or_404(Project, slug=slug, is_approved=True)
-    return render(request, 'detail.html', {'project': project})
+    
+    # Utwórz absolutny URL dla obrazka OG
+    og_image_url = None
+    if project.image1:
+        og_image_url = request.build_absolute_uri(project.image1.url)
+
+    # Utwórz absolutny URL dla strony
+    og_url = request.build_absolute_uri()
+
+    context = {
+        'project': project,
+        'og_image_url': og_image_url,
+        'og_url': og_url,
+    }
+    return render(request, 'detail.html', context)
 
 def add_project(request):
     if request.method == 'POST':
