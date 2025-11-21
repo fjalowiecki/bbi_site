@@ -21,7 +21,7 @@
       <h2 class="text-lg font-light mb-4">{{ project.organization_name }}</h2>
 
       <div class="mb-6">
-        <p class="font-light leading-tight mb-4">{{ project.description|linebreaksbr }}</p>
+        <p class="font-light leading-tight mb-4" id="project-description">{{ project.description|linebreaksbr }}</p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
@@ -65,7 +65,7 @@
       {% if project.contact_info %}
       <div class="mb-6">
         <h3 class="font-bold">Dane kontaktowe</h3>
-        <p class="font-light leading-tight">{{ project.contact_info|linebreaksbr }}</p>
+        <p class="font-light leading-tight" id="project-contact">{{ project.contact_info|linebreaksbr }}</p>
       </div>
       {% endif %}
 
@@ -134,6 +134,19 @@
     if (e.key === 'Escape') {
       closeModal();
     }
+  });
+
+  // --- Skrypt do usuwania sierotek ---
+  document.addEventListener('DOMContentLoaded', function() {
+    function preventOrphans(selector) {
+      const element = document.querySelector(selector);
+      if (element) {
+        element.innerHTML = element.innerHTML.replace(/\b(i|w|z|o|u|a)\s/gi, '$1&nbsp;');
+      }
+    }
+
+    preventOrphans('#project-description');
+    preventOrphans('#project-contact');
   });
 </script>
 
