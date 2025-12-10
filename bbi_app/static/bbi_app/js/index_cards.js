@@ -114,6 +114,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function startAutoSwitch() {
         clearInterval(autoSwitchInterval);
+        // Nie uruchamiaj automatycznego przełączania na urządzeniach mobilnych
+        if (window.innerWidth < 768) {
+            return;
+        }
         autoSwitchInterval = setInterval(function() {
             var nextPage = (currentPage + 1) % dots.length;
             showPage(nextPage);
@@ -176,9 +180,12 @@ document.addEventListener('DOMContentLoaded', function() {
                 cardsContainer.style.width = '';
                 cardsContainer.style.minWidth = '';
                 cardsContainer.style.maxWidth = '';
+                // Zatrzymaj automatyczne przełączanie
+                clearInterval(autoSwitchInterval);
             } else {
-                // Przelicz szerokość na desktop
+                // Przelicz szerokość na desktop i uruchom automatyczne przełączanie
                 calculateMaxWidth();
+                startAutoSwitch();
             }
         }, 250);
     });

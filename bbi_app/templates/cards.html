@@ -35,7 +35,7 @@
   </div>
 
   {% if projects.has_other_pages %}
-  <div class="flex mb-6 justify-center">
+  <div class="flex mb-6 mt-10 justify-center">
       <nav class="flex items-center gap-4 text-sm">
           {% if projects.has_previous %}
               <a href="?page={{ projects.previous_page_number }}{% for key, value in request.GET.items %}{% if key != 'page' %}&{{ key }}={{ value }}{% endif %}{% endfor %}" class="hover:text-[#EE5C69] transition-colors">
