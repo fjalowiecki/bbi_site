@@ -19,6 +19,7 @@ class ProjectForm(forms.ModelForm):
             'financing_type',
             'financing_type_other',
             'contact_info',
+            'user_email',
             'image1',
             'image2',
             'image3',

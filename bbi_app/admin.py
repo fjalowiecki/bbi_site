@@ -3,7 +3,9 @@ from .models import Project, Tag, ProjectLink, ProjectFile
 from django.utils.text import slugify
 
 def approve_projects(modeladmin, request, queryset):
-    queryset.update(is_approved=True)
+    for project in queryset:
+        project.is_approved = True
+        project.save()
 approve_projects.short_description = "Zatwierdź zaznaczone projekty"
 
 def duplicate_project(modeladmin, request, queryset):

@@ -80,7 +80,29 @@ def add_project(request):
             file_formset.instance = project
             file_formset.save()
             
-            # --- POCZĄTEK: Logika wysyłania e-maila ---
+            # --- POCZĄTEK: Logika wysyłania e-maila do UŻYTKOWNIKA ---
+            if project.user_email:
+                try:
+                    user_subject = f'Twój projekt "{project.title}" czeka na akceptację'
+                    user_message = (
+                        f'Cześć,\n\n'
+                        f'dziękujemy za dodanie projektu "{project.title}" do Banku Pomysłów.\n\n'
+                        f'Projekt oczekuje teraz na weryfikację przez administratora. Otrzymasz powiadomienie, gdy zostanie opublikowany.\n\n'
+                        f'Pozdrawiamy\n'
+                        f'Zespół Banku Pomysłów'
+                    )
+                    send_mail(
+                        user_subject,
+                        user_message,
+                        settings.DEFAULT_FROM_EMAIL,
+                        [project.user_email],
+                        fail_silently=False,
+                    )
+                except Exception as e:
+                    print(f"Błąd podczas wysyłania e-maila do użytkownika: {e}")
+            # --- KONIEC: Logika wysyłania e-maila do UŻYTKOWNIKA ---            
+            
+            # --- POCZĄTEK: Logika wysyłania e-maila do ADMINA ---
             try:
                 subject = f'Nowy projekt w Banku Pomysłów: "{project.title}"'
                 
@@ -106,7 +128,7 @@ def add_project(request):
                 )
             except Exception as e:
                 print(f"Błąd podczas wysyłania e-maila: {e}")
-            # --- KONIEC: Logika wysyłania e-maila ---
+            # --- KONIEC: Logika wysyłania e-maila do ADMINA ---
             
             return redirect('bbi_app:project_added_success')
     else:
